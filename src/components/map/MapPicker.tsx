@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import L from 'leaflet';
-import { Navigation, Crosshair, MapPin, AlertCircle, CheckCircle2, ChevronRight } from 'lucide-react';
+import { Crosshair, MapPin, AlertCircle, CheckCircle2, ChevronRight } from 'lucide-react';
 import { Coordinates } from '../../types';
 import { cn } from '../../lib/utils';
 
@@ -251,12 +251,10 @@ export const MapPicker: React.FC<MapPickerProps> = ({
           disabled={isLocating}
           className="pointer-events-auto min-h-[44px] px-3.5 py-2 rounded-xl bg-white/95 backdrop-blur-md border border-border-hairline text-xs font-semibold text-forest shadow-sm hover:bg-[#F2FBF5] active:scale-96 transition-all inline-flex items-center gap-1.5 btn-tactile"
         >
-          {isLocating ? (
+          {isLocating && (
             <Crosshair className="w-4 h-4 text-forest animate-spin" />
-          ) : (
-            <Navigation className="w-4 h-4 text-forest" />
           )}
-          <span>{isLocating ? 'Mendeteksi...' : '⌖ Gunakan Lokasi Saat Ini'}</span>
+          <span>{isLocating ? 'Mendeteksi...' : 'Gunakan Lokasi Saat Ini'}</span>
         </button>
 
         {/* Status Toast / Badge */}

@@ -2,9 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   User,
-  Phone,
   MapPin,
-  HelpCircle,
   Stethoscope,
   Calendar,
   Clock,
@@ -146,18 +144,12 @@ export const BookingStep3Page: React.FC = () => {
 
           {/* WhatsApp Phone */}
           <div className="space-y-1.5">
-            <div className="flex items-center justify-between">
-              <label
-                htmlFor="patient-phone"
-                className="block text-xs font-semibold text-ink-primary"
-              >
-                Nomor WhatsApp Aktif
-              </label>
-              <span className="text-[11px] text-[#25D366] font-medium flex items-center gap-1">
-                <Phone className="w-3 h-3" />
-                Konfirmasi Instan
-              </span>
-            </div>
+            <label
+              htmlFor="patient-phone"
+              className="block text-xs font-semibold text-ink-primary"
+            >
+              Nomor WhatsApp Aktif
+            </label>
             <input
               id="patient-phone"
               type="tel"
@@ -214,18 +206,12 @@ export const BookingStep3Page: React.FC = () => {
 
           {/* Landmark Input */}
           <div className="space-y-1.5">
-            <div className="flex items-center justify-between">
-              <label
-                htmlFor="patient-landmark"
-                className="block text-xs font-semibold text-ink-primary"
-              >
-                Patokan / Ciri Rumah
-              </label>
-              <span className="text-[11px] text-ink-muted flex items-center gap-1">
-                <HelpCircle className="w-3 h-3 text-ink-muted" />
-                Mempercepat Dokter Tiba
-              </span>
-            </div>
+            <label
+              htmlFor="patient-landmark"
+              className="block text-xs font-semibold text-ink-primary"
+            >
+              Patokan / Ciri Rumah
+            </label>
             <input
               id="patient-landmark"
               type="text"
@@ -350,7 +336,7 @@ export const BookingStep3Page: React.FC = () => {
                 <MapPin className="w-3.5 h-3.5 text-forest" />
                 <span>Tujuan</span>
               </div>
-              <span className="font-semibold text-ink-primary text-right truncate max-w-[220px]">
+              <span className="font-semibold text-ink-primary text-right">
                 {address || 'Tangerang Selatan'}
               </span>
             </div>

@@ -41,10 +41,6 @@ export const BookingSuccessPage: React.FC = () => {
   };
 
   const formattedDate = formatIndonesianDate(booking.date || '2024-06-25');
-  const serviceLabel =
-    booking.serviceType === 'teleconsultation'
-      ? 'Telekonsultasi Video'
-      : 'Kunjungan Dokter ke Rumah';
 
   const handleDownloadCalendar = () => {
     downloadIcsFile(booking);
@@ -152,13 +148,10 @@ export const BookingSuccessPage: React.FC = () => {
           padding="md"
           className="space-y-3 border border-border-subtle"
         >
-          <div className="flex items-center justify-between pb-2 border-b border-border-subtle">
+          <div className="pb-2 border-b border-border-subtle">
             <h3 className="text-xs font-bold uppercase tracking-wider text-forest">
               Rincian Jadwal Kunjungan
             </h3>
-            <span className="text-[11px] font-medium text-ink-muted">
-              {serviceLabel}
-            </span>
           </div>
 
           <div className="space-y-2.5 text-xs text-ink-secondary">
@@ -185,27 +178,31 @@ export const BookingSuccessPage: React.FC = () => {
             </div>
 
             {/* Lokasi Kunjungan */}
-            <div className="pt-1 border-t border-border-subtle">
-              <div className="flex items-start justify-between gap-3">
-                <div className="flex items-center gap-2 text-ink-muted shrink-0 mt-0.5">
+            <div className="pt-2 border-t border-border-subtle space-y-2">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2 text-ink-muted">
                   <MapPin className="w-4 h-4 text-forest" />
                   <span>Lokasi Kunjungan</span>
                 </div>
-                <div className="text-right">
-                  <p className="font-semibold text-ink-primary">
-                    Rumah Pasien
+                <span className="text-[11px] font-semibold text-forest bg-forest-light px-2.5 py-0.5 rounded-full border border-border-hairline">
+                  Rumah Pasien
+                </span>
+              </div>
+
+              <div className="bg-[#F6F9F6] border border-[#E2ECE4] rounded-xl p-2.5 space-y-1">
+                <p className="text-xs font-semibold text-ink-primary leading-snug">
+                  {booking.address}
+                </p>
+                {booking.landmark && (
+                  <p className="text-[11px] text-ink-secondary leading-normal">
+                    <span className="text-ink-muted font-normal">Patokan:</span>{' '}
+                    {booking.landmark}
                   </p>
-                  <p className="text-[11px] text-ink-secondary mt-0.5 line-clamp-2 max-w-[200px]">
-                    {booking.address}
-                  </p>
-                  {booking.landmark && (
-                    <p className="text-[10px] text-ink-muted mt-0.5 italic">
-                      (Patokan: {booking.landmark})
-                    </p>
-                  )}
-                  <p className="text-[10px] text-forest font-mono mt-1">
+                )}
+                <div className="pt-1 border-t border-[#E2ECE4]/70 flex items-center justify-between">
+                  <span className="text-[10px] text-forest font-mono tracking-tight font-medium">
                     GPS: {booking.coordinates?.lat}° S, {booking.coordinates?.lng}° E
-                  </p>
+                  </span>
                 </div>
               </div>
             </div>

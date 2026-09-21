@@ -161,7 +161,7 @@ export const BookingStep1Page: React.FC = () => {
                   data-testid={`calendar-day-${item.dateStr}`}
                   data-active={isSelected ? 'true' : 'false'}
                   onClick={() => setSelectedDate(item.dateStr)}
-                  className={`flex flex-col items-center justify-center py-2 px-1 rounded-2xl min-h-[58px] transition-all duration-quick btn-tactile ${
+                  className={`flex flex-col items-center justify-center py-2 px-1 rounded-2xl h-[58px] transition-all duration-quick btn-tactile ${
                     isSelected
                       ? 'bg-forest text-white shadow-md ring-2 ring-forest/30 scale-[1.02]'
                       : 'bg-card text-ink-primary border border-border-subtle hover:bg-card-hover'
@@ -181,9 +181,11 @@ export const BookingStep1Page: React.FC = () => {
                   >
                     {item.dayNum}
                   </span>
-                  {isSelected && (
-                    <span className="w-1 h-1 rounded-full bg-lime mt-0.5" />
-                  )}
+                  <span
+                    className={`w-1 h-1 rounded-full mt-0.5 transition-opacity ${
+                      isSelected ? 'bg-lime' : 'opacity-0'
+                    }`}
+                  />
                 </button>
               );
             })}
