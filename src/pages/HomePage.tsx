@@ -72,21 +72,21 @@ export const HomePage: React.FC = () => {
           <Link
             to="/profil"
             data-testid="badge-fk"
-            className="inline-flex items-center px-3 py-1.5 rounded-full bg-card border border-border-hairline text-xs font-medium text-ink-primary hover:bg-card-hover btn-tactile transition-colors"
+            className="inline-flex items-center justify-center min-h-[44px] px-4 py-2 rounded-full bg-card border border-border-hairline text-xs font-medium text-ink-primary hover:bg-card-hover btn-tactile transition-colors"
           >
             FK UI / Sp.PD
           </Link>
           <Link
             to="/profil"
             data-testid="badge-experience"
-            className="inline-flex items-center px-3 py-1.5 rounded-full bg-card border border-border-hairline text-xs font-medium text-ink-primary hover:bg-card-hover btn-tactile transition-colors"
+            className="inline-flex items-center justify-center min-h-[44px] px-4 py-2 rounded-full bg-card border border-border-hairline text-xs font-medium text-ink-primary hover:bg-card-hover btn-tactile transition-colors"
           >
             10+ Thn Pengalaman
           </Link>
           <Link
             to="/ulasan"
             data-testid="badge-rating"
-            className="inline-flex items-center px-3 py-1.5 rounded-full bg-card border border-border-hairline text-xs font-medium text-ink-primary hover:bg-card-hover btn-tactile transition-colors"
+            className="inline-flex items-center justify-center min-h-[44px] px-4 py-2 rounded-full bg-card border border-border-hairline text-xs font-medium text-ink-primary hover:bg-card-hover btn-tactile transition-colors"
           >
             <span className="text-[#FFB800] mr-1">★</span> 4.9 (180+ Pasien)
           </Link>
@@ -174,10 +174,18 @@ export const HomePage: React.FC = () => {
         {/* Card 2: Pemeriksaan Lansia & Kronis */}
         <Card
           data-testid="service-card-lansia"
+          role="button"
+          tabIndex={0}
           interactive
-          className="p-4 bg-card border border-border-hairline rounded-2xl flex items-center justify-between cursor-pointer"
+          className="p-4 bg-card border border-border-hairline rounded-2xl flex items-center justify-between cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest/20"
           radius="2xl"
           onClick={() => navigate('/booking/langkah-1')}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              navigate('/booking/langkah-1');
+            }
+          }}
         >
           <div className="flex items-center gap-3 min-w-0">
             <div className="w-10 h-10 rounded-xl bg-forest/10 flex items-center justify-center shrink-0 text-forest">
@@ -198,10 +206,18 @@ export const HomePage: React.FC = () => {
         {/* Card 3: Pengambilan Darah & Lab */}
         <Card
           data-testid="service-card-lab"
+          role="button"
+          tabIndex={0}
           interactive
-          className="p-4 bg-card border border-border-hairline rounded-2xl flex items-center justify-between cursor-pointer"
+          className="p-4 bg-card border border-border-hairline rounded-2xl flex items-center justify-between cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest/20"
           radius="2xl"
           onClick={() => navigate('/booking/langkah-1')}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              navigate('/booking/langkah-1');
+            }
+          }}
         >
           <div className="flex items-center gap-3 min-w-0">
             <div className="w-10 h-10 rounded-xl bg-forest/10 flex items-center justify-center shrink-0 text-forest">
@@ -222,10 +238,18 @@ export const HomePage: React.FC = () => {
         {/* Card 4: Perawatan Luka & Jahitan */}
         <Card
           data-testid="service-card-perawatan-luka"
+          role="button"
+          tabIndex={0}
           interactive
-          className="p-4 bg-card border border-border-hairline rounded-2xl flex items-center justify-between cursor-pointer"
+          className="p-4 bg-card border border-border-hairline rounded-2xl flex items-center justify-between cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest/20"
           radius="2xl"
           onClick={() => navigate('/booking/langkah-1')}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              navigate('/booking/langkah-1');
+            }
+          }}
         >
           <div className="flex items-center gap-3 min-w-0">
             <div className="w-10 h-10 rounded-xl bg-forest/10 flex items-center justify-center shrink-0 text-forest">

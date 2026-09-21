@@ -30,13 +30,19 @@ test.describe('Task 4: Layar 1 (Beranda & Bio-Link Hub)', () => {
     // Experience badges
     const badgeFk = page.getByTestId('badge-fk');
     await expect.soft(badgeFk).toContainText('FK UI / Sp.PD');
+    const fkBox = await badgeFk.boundingBox();
+    expect.soft(fkBox?.height).toBeGreaterThanOrEqual(44);
 
     const badgeExp = page.getByTestId('badge-experience');
     await expect.soft(badgeExp).toContainText('10+ Thn Pengalaman');
+    const expBox = await badgeExp.boundingBox();
+    expect.soft(expBox?.height).toBeGreaterThanOrEqual(44);
 
     const badgeRating = page.getByTestId('badge-rating');
     await expect.soft(badgeRating).toContainText('4.9');
     await expect.soft(badgeRating).toContainText('180+ Pasien');
+    const ratingBox = await badgeRating.boundingBox();
+    expect.soft(ratingBox?.height).toBeGreaterThanOrEqual(44);
   });
 
   test('clicking profile badge navigates to /profil', async ({ page }) => {
@@ -89,6 +95,16 @@ test.describe('Task 4: Layar 1 (Beranda & Bio-Link Hub)', () => {
     await orderButton.click();
     await expect.soft(page).toHaveURL(/\/booking\/langkah-1/);
   });
+
+  test('service cards are accessible via keyboard navigation', async ({ page }) => {
+    const cardElderly = page.getByTestId('service-card-lansia');
+    await expect.soft(cardElderly).toHaveAttribute('role', 'button');
+    await expect.soft(cardElderly).toHaveAttribute('tabindex', '0');
+
+    await cardElderly.focus();
+    await page.keyboard.press('Enter');
+    await expect.soft(page).toHaveURL(/\/booking\/langkah-1/);
+  });
 });
 
 test.describe('Task 4: Layar 2 (Profil & Detail Klinis Dokter)', () => {
@@ -114,17 +130,23 @@ test.describe('Task 4: Layar 2 (Profil & Detail Klinis Dokter)', () => {
     await expect.soft(page).toHaveURL('/');
   });
 
-  test('renders contact pills with valid links', async ({ page }) => {
+  test('renders contact pills with valid links and min 44px touch targets', async ({ page }) => {
     const pillTel = page.getByTestId('contact-pill-phone');
     await expect.soft(pillTel).toContainText('0812-3456-7890');
     await expect.soft(pillTel).toHaveAttribute('href', /tel:081234567890/);
+    const telBox = await pillTel.boundingBox();
+    expect.soft(telBox?.height).toBeGreaterThanOrEqual(44);
 
     const pillMail = page.getByTestId('contact-pill-email');
     await expect.soft(pillMail).toContainText('corina@healthrate.id');
     await expect.soft(pillMail).toHaveAttribute('href', /mailto:corina@healthrate\.id/);
+    const mailBox = await pillMail.boundingBox();
+    expect.soft(mailBox?.height).toBeGreaterThanOrEqual(44);
 
     const pillLoc = page.getByTestId('contact-pill-location');
     await expect.soft(pillLoc).toContainText('Tangerang Selatan');
+    const locBox = await pillLoc.boundingBox();
+    expect.soft(locBox?.height).toBeGreaterThanOrEqual(44);
   });
 
   test('renders rating link, review link, and AI summary box', async ({ page }) => {
@@ -182,6 +204,7 @@ test.describe('Task 4: Layar 2 (Profil & Detail Klinis Dokter)', () => {
   test('renders sticky consultation fee footer and button navigates to /booking/langkah-1', async ({ page }) => {
     const footer = page.getByTestId('sticky-booking-footer');
     await expect.soft(footer).toBeVisible();
+    await expect.soft(footer).toHaveClass(/sticky/);
     await expect.soft(footer).toContainText('Rp 250.000');
     await expect.soft(footer).toContainText('Biaya konsultasi');
 

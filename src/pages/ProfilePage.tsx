@@ -23,7 +23,7 @@ export const ProfilePage: React.FC = () => {
   const [isFavorite, setIsFavorite] = useState(false);
 
   return (
-    <MobileFrame hideNav={true} contentClassName="p-0 pb-28">
+    <MobileFrame hideNav={true} contentClassName="p-0">
       {/* Hero Photo Section */}
       <div className="relative w-full h-[320px] bg-forest/10 overflow-hidden">
         <img
@@ -40,7 +40,7 @@ export const ProfilePage: React.FC = () => {
             aria-label="Kembali"
             data-testid="btn-back"
             onClick={() => navigate('/')}
-            className="w-11 h-11 rounded-full bg-white/80 backdrop-blur-md flex items-center justify-center text-ink-primary shadow-sm btn-tactile hover:bg-white"
+            className="w-11 h-11 min-w-[44px] min-h-[44px] rounded-full bg-white/80 backdrop-blur-md flex items-center justify-center text-ink-primary shadow-sm btn-tactile hover:bg-white cursor-pointer"
           >
             <ChevronLeft className="w-6 h-6 stroke-[2.5]" />
           </button>
@@ -51,7 +51,7 @@ export const ProfilePage: React.FC = () => {
               aria-label="Favorit"
               data-testid="btn-favorite"
               onClick={() => setIsFavorite(!isFavorite)}
-              className="w-11 h-11 rounded-full bg-white/80 backdrop-blur-md flex items-center justify-center text-ink-primary shadow-sm btn-tactile hover:bg-white"
+              className="w-11 h-11 min-w-[44px] min-h-[44px] rounded-full bg-white/80 backdrop-blur-md flex items-center justify-center text-ink-primary shadow-sm btn-tactile hover:bg-white cursor-pointer"
             >
               <Heart
                 className={`w-5 h-5 transition-colors ${
@@ -63,7 +63,7 @@ export const ProfilePage: React.FC = () => {
               type="button"
               aria-label="Menu Lainnya"
               data-testid="btn-more"
-              className="w-11 h-11 rounded-full bg-white/80 backdrop-blur-md flex items-center justify-center text-ink-primary shadow-sm btn-tactile hover:bg-white"
+              className="w-11 h-11 min-w-[44px] min-h-[44px] rounded-full bg-white/80 backdrop-blur-md flex items-center justify-center text-ink-primary shadow-sm btn-tactile hover:bg-white cursor-pointer"
             >
               <MoreHorizontal className="w-5 h-5" />
             </button>
@@ -81,7 +81,7 @@ export const ProfilePage: React.FC = () => {
           <a
             href="tel:081234567890"
             data-testid="contact-pill-phone"
-            className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-card border border-border-hairline text-xs font-semibold text-ink-primary hover:bg-card-hover btn-tactile shrink-0"
+            className="inline-flex items-center gap-1.5 min-h-[44px] px-4 py-2 rounded-full bg-card border border-border-hairline text-xs font-semibold text-ink-primary hover:bg-card-hover btn-tactile shrink-0"
           >
             <Phone className="w-3.5 h-3.5 text-forest" />
             <span>0812-3456-7890</span>
@@ -90,7 +90,7 @@ export const ProfilePage: React.FC = () => {
           <a
             href="mailto:corina@healthrate.id"
             data-testid="contact-pill-email"
-            className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-card border border-border-hairline text-xs font-semibold text-ink-primary hover:bg-card-hover btn-tactile shrink-0"
+            className="inline-flex items-center gap-1.5 min-h-[44px] px-4 py-2 rounded-full bg-card border border-border-hairline text-xs font-semibold text-ink-primary hover:bg-card-hover btn-tactile shrink-0"
           >
             <Mail className="w-3.5 h-3.5 text-forest" />
             <span>corina@healthrate.id</span>
@@ -98,7 +98,7 @@ export const ProfilePage: React.FC = () => {
 
           <div
             data-testid="contact-pill-location"
-            className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-card border border-border-hairline text-xs font-medium text-ink-secondary shrink-0"
+            className="inline-flex items-center gap-1.5 min-h-[44px] px-4 py-2 rounded-full bg-card border border-border-hairline text-xs font-medium text-ink-secondary shrink-0"
           >
             <MapPin className="w-3.5 h-3.5 text-ink-muted" />
             <span>Tangerang Selatan</span>
@@ -133,7 +133,7 @@ export const ProfilePage: React.FC = () => {
             <Link
               to="/ulasan"
               data-testid="profile-rating-badge"
-              className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-card hover:bg-card-hover text-xs font-semibold text-ink-primary btn-tactile"
+              className="inline-flex items-center gap-1.5 min-h-[44px] px-3 py-2 rounded-lg bg-card hover:bg-card-hover text-xs font-semibold text-ink-primary btn-tactile"
             >
               <Star className="w-3.5 h-3.5 fill-[#FFB800] text-[#FFB800]" />
               <span>4.8 • 38 ulasan &gt;</span>
@@ -142,7 +142,7 @@ export const ProfilePage: React.FC = () => {
             <Link
               to="/ulasan/tulis"
               data-testid="link-tulis-ulasan"
-              className="text-xs font-semibold text-forest hover:underline flex items-center gap-0.5"
+              className="inline-flex items-center min-h-[44px] px-3 py-2 text-xs font-semibold text-forest hover:underline btn-tactile"
             >
               <span>Beri Ulasan &gt;</span>
             </Link>
@@ -254,7 +254,6 @@ export const ProfilePage: React.FC = () => {
                   strokeWidth="12"
                   strokeDasharray="87.96 251.33"
                   strokeDashoffset="0"
-                  strokeLinecap="round"
                 />
                 {/* Segment 2: Kardiologi 25% */}
                 <circle
@@ -393,7 +392,7 @@ export const ProfilePage: React.FC = () => {
       {/* Sticky Booking Footer */}
       <div
         data-testid="sticky-booking-footer"
-        className="fixed sm:absolute bottom-0 inset-x-0 bg-surface/95 backdrop-blur-md border-t border-border-hairline p-4 px-5 z-20 flex items-center justify-between gap-4"
+        className="sticky bottom-0 inset-x-0 bg-surface/95 backdrop-blur-md border-t border-border-hairline p-4 px-5 z-20 flex items-center justify-between gap-4 mt-auto shadow-sm"
       >
         <div className="flex flex-col">
           <span className="text-[11px] font-semibold uppercase tracking-wider text-ink-muted">
