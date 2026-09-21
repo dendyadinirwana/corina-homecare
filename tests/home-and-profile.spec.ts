@@ -21,7 +21,8 @@ test.describe('Task 4: Layar 1 (Beranda & Bio-Link Hub)', () => {
     await expect.soft(doctorSpecialty).toContainText('Dokter Spesialis Penyakit Dalam & Layanan Homecare');
 
     const doctorRegistration = page.getByTestId('doctor-registration');
-    await expect.soft(doctorRegistration).toContainText('SIP No. 446.1/1082/SIP.D/2022 • IDI Tangerang Selatan');
+    await expect.soft(doctorRegistration).toHaveText('SIP No. 446.1/1082/SIP.D/2022');
+    await expect.soft(doctorRegistration).not.toContainText('IDI Tangerang Selatan');
 
     // Experience badges
     const badgeFk = page.getByTestId('badge-fk');

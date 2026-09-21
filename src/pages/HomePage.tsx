@@ -47,7 +47,7 @@ export const HomePage: React.FC = () => {
           data-testid="doctor-registration"
           className="text-[11px] text-ink-muted mt-1 tracking-tight"
         >
-          SIP No. 446.1/1082/SIP.D/2022 • IDI Tangerang Selatan
+          SIP No. 446.1/1082/SIP.D/2022
         </p>
 
         {/* Experience Badges */}

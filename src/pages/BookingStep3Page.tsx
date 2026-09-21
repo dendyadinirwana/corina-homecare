@@ -8,6 +8,7 @@ import {
   Clock,
   CheckCircle2,
   FileText,
+  MessageCircle,
 } from 'lucide-react';
 import { MobileFrame } from '../components/layout/MobileFrame';
 import { Stepper } from '../components/ui/Stepper';
@@ -17,6 +18,7 @@ import { MiniDoctorCard } from '../components/booking/MiniDoctorCard';
 import { MapPicker } from '../components/map/MapPicker';
 import { useBookingStore } from '../store/bookingStore';
 import { formatIndonesianDate } from '../utils/calendar';
+import { createWhatsAppBookingUrl } from '../utils/whatsapp';
 import type { Coordinates } from '../types';
 
 const COMPLAINT_PRESETS = [
@@ -86,15 +88,33 @@ export const BookingStep3Page: React.FC = () => {
   };
 
   const handleConfirm = () => {
+    const finalComplaint = complaintDetail || complaintCategory;
     setDraft({
       patientName,
       patientPhone,
       address,
       landmark,
       coordinates,
-      complaint: complaintDetail || complaintCategory,
+      complaint: finalComplaint,
     });
     confirmBooking();
+
+    const whatsappUrl = createWhatsAppBookingUrl({
+      patientName,
+      patientPhone,
+      serviceType: draft.serviceType,
+      date: draft.date,
+      time: draft.time,
+      address,
+      landmark,
+      coordinates,
+      complaint: finalComplaint,
+    });
+
+    if (typeof window !== 'undefined') {
+      window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+    }
+
     navigate('/booking/konfirmasi');
   };
 
@@ -362,9 +382,10 @@ export const BookingStep3Page: React.FC = () => {
           size="lg"
           fullWidth
           onClick={handleConfirm}
-          className="shadow-sm min-h-[48px]"
+          className="shadow-sm min-h-[48px] flex items-center justify-center gap-2 font-bold"
         >
-          Konfirmasi Janji Temu →
+          <MessageCircle className="w-5 h-5 fill-[#1E3322] text-[#1E3322]" />
+          <span>Konfirmasi Janji Temu via WhatsApp →</span>
         </Button>
       </div>
     </MobileFrame>

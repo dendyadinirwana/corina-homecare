@@ -13,12 +13,14 @@ import {
   CalendarPlus,
   ChevronDown,
   ChevronUp,
+  MessageCircle,
 } from 'lucide-react';
 import { MobileFrame } from '../components/layout/MobileFrame';
 import { Card } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
 import { useBookingStore } from '../store/bookingStore';
 import { downloadIcsFile, formatIndonesianDate } from '../utils/calendar';
+import { createWhatsAppBookingUrl } from '../utils/whatsapp';
 import type { ConfirmedBooking } from '../types';
 
 export const BookingSuccessPage: React.FC = () => {
@@ -41,6 +43,17 @@ export const BookingSuccessPage: React.FC = () => {
   };
 
   const formattedDate = formatIndonesianDate(booking.date || '2024-06-25');
+  const whatsappUrl = createWhatsAppBookingUrl({
+    patientName: booking.patientName,
+    patientPhone: booking.patientPhone,
+    serviceType: booking.serviceType,
+    date: booking.date,
+    time: booking.time,
+    address: booking.address,
+    landmark: booking.landmark,
+    coordinates: booking.coordinates,
+    complaint: booking.complaint,
+  });
 
   const handleDownloadCalendar = () => {
     downloadIcsFile(booking);
@@ -252,13 +265,25 @@ export const BookingSuccessPage: React.FC = () => {
           <div className="w-8 h-8 rounded-xl bg-forest text-lime flex items-center justify-center shrink-0 mt-0.5">
             <Mail className="w-4 h-4" />
           </div>
-          <div className="text-xs text-ink-secondary space-y-0.5">
+          <div className="text-xs text-ink-secondary space-y-1 flex-1">
             <p className="font-bold text-ink-primary">
               Notifikasi Email & WhatsApp Terkirim
             </p>
             <p className="text-[11px] leading-relaxed">
               Konfirmasi dan rincian persiapan kunjungan telah dikirim ke WhatsApp <strong className="text-ink-primary">{booking.patientPhone}</strong> dan email terdaftar.
             </p>
+            <div className="pt-1">
+              <a
+                href={whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                data-testid="link-reopen-whatsapp"
+                className="inline-flex items-center gap-1.5 text-xs font-semibold text-forest hover:underline"
+              >
+                <MessageCircle className="w-3.5 h-3.5 fill-[#25D366] text-[#25D366]" />
+                <span>Buka Chat WhatsApp Dokter →</span>
+              </a>
+            </div>
           </div>
         </div>
 
