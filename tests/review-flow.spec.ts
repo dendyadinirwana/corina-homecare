@@ -73,6 +73,12 @@ test.describe('Task 7: Layar 7 & 8 (Daftar Ulasan Pasien & Formulir Tulis Ulasan
     await expect.soft(page.getByText('Siti Rahmawati')).toBeVisible();
     await expect.soft(page.getByText('Bambang Sudirgo')).toBeVisible();
 
+    // Sort dropdown touch target (Apple HIG >= 44px)
+    const selectSort = page.getByTestId('select-sort-reviews');
+    await expect.soft(selectSort).toBeVisible();
+    const sortBox = await selectSort.boundingBox();
+    expect.soft(sortBox?.height).toBeGreaterThanOrEqual(44);
+
     // Sticky write review button touch target
     const btnWrite = page.getByTestId('btn-write-review');
     await expect.soft(btnWrite).toBeVisible();
@@ -144,7 +150,12 @@ test.describe('Task 7: Layar 7 & 8 (Daftar Ulasan Pasien & Formulir Tulis Ulasan
     const textarea = page.getByTestId('textarea-review-comment');
     await expect.soft(textarea).toBeVisible();
 
-    // Anonymous toggle switch
+    // Anonymous toggle switch and card label touch target
+    const cardAnon = page.getByTestId('card-anonymous-toggle');
+    await expect.soft(cardAnon).toBeVisible();
+    const cardAnonBox = await cardAnon.boundingBox();
+    expect.soft(cardAnonBox?.height).toBeGreaterThanOrEqual(44);
+
     const switchAnon = page.getByTestId('switch-anonymous');
     await expect.soft(switchAnon).toBeVisible();
 
@@ -189,9 +200,11 @@ test.describe('Task 7: Layar 7 & 8 (Daftar Ulasan Pasien & Formulir Tulis Ulasan
     const charCounter = page.getByTestId('char-counter');
     await expect.soft(charCounter).toContainText(`${testComment.length}/500`);
 
-    // Enable anonymous switch
+    // Enable anonymous switch by clicking the card label
+    const cardAnon = page.getByTestId('card-anonymous-toggle');
+    await cardAnon.click();
     const switchAnon = page.getByTestId('switch-anonymous');
-    await switchAnon.click();
+    await expect.soft(switchAnon).toHaveAttribute('aria-checked', 'true');
 
     // Submit review
     const btnSubmit = page.getByTestId('btn-submit-review');

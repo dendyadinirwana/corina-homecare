@@ -65,7 +65,7 @@ export const ReviewsPage: React.FC = () => {
           type="button"
           aria-label="Filter Ulasan"
           data-testid="btn-filter-icon"
-          className="w-11 h-11 min-w-[44px] min-h-[44px] rounded-full flex items-center justify-center text-ink-primary hover:bg-black/5 active:scale-95 btn-tactile transition-colors"
+          className="w-11 h-11 min-w-[44px] min-h-[44px] rounded-full flex items-center justify-center text-ink-primary hover:bg-black/5 active:scale-95 btn-tactile transition-colors cursor-pointer"
         >
           <SlidersHorizontal className="w-5 h-5 text-ink-primary" />
         </button>
@@ -102,10 +102,10 @@ export const ReviewsPage: React.FC = () => {
 
           <div
             data-testid="satisfaction-badge"
-            className="inline-flex items-center gap-1 px-3 py-1.5 rounded-full bg-[#E8F8EE] text-[#1E3322] border border-[#C5E9D1] text-xs font-bold tracking-tight shadow-2xs"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#E8F8EE] text-[#1E3322] border border-[#C5E9D1] text-xs font-bold tracking-tight shadow-2xs"
           >
             <Check className="w-3.5 h-3.5 stroke-[2.5]" />
-            <span>✓ 99% Puas</span>
+            <span>99% Puas</span>
           </div>
         </div>
 
@@ -210,7 +210,7 @@ export const ReviewsPage: React.FC = () => {
         </div>
       </div>
 
-      {/* 4. Review Feed Header */}
+      {/* 4. Review Feed Header with 44px min-h sort dropdown */}
       <div className="flex items-center justify-between pt-2 px-1">
         <div className="flex items-center gap-2">
           <h3 className="text-sm font-bold text-ink-primary">
@@ -221,19 +221,20 @@ export const ReviewsPage: React.FC = () => {
           </span>
         </div>
 
-        <div className="flex items-center gap-1 text-xs font-medium text-ink-secondary">
+        <div className="flex items-center gap-1.5 text-xs font-medium text-ink-secondary">
           <span>Urutkan:</span>
           <div className="relative inline-flex items-center">
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value as 'terbaru' | 'tertinggi')}
               aria-label="Urutkan Ulasan"
-              className="appearance-none bg-transparent pr-5 py-1 text-xs font-semibold text-ink-primary cursor-pointer focus:outline-none"
+              data-testid="select-sort-reviews"
+              className="appearance-none bg-transparent pl-2 pr-6 py-2 min-h-[44px] text-xs font-semibold text-ink-primary cursor-pointer focus:outline-none rounded-lg hover:bg-black/5 transition-colors"
             >
               <option value="terbaru">Terbaru</option>
               <option value="tertinggi">Tertinggi</option>
             </select>
-            <ChevronDown className="w-3.5 h-3.5 text-ink-secondary pointer-events-none absolute right-0" />
+            <ChevronDown className="w-3.5 h-3.5 text-ink-secondary pointer-events-none absolute right-1.5" />
           </div>
         </div>
       </div>
@@ -278,9 +279,10 @@ export const ReviewsPage: React.FC = () => {
                         {review.verified && (
                           <span
                             title="Terverifikasi"
-                            className="inline-flex items-center px-1.5 py-0.5 rounded-full bg-[#E8F8EE] text-[#1E3322] text-[10px] font-bold"
+                            className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#E8F8EE] text-[#1E3322] text-[10px] font-bold"
                           >
-                            ✓ Terverifikasi
+                            <Check className="w-3 h-3 stroke-[2.5]" />
+                            <span>Terverifikasi</span>
                           </span>
                         )}
                       </div>
@@ -330,7 +332,7 @@ export const ReviewsPage: React.FC = () => {
                         isLiked ? 'fill-forest text-forest' : 'text-ink-secondary'
                       }`}
                     />
-                    <span>👍 Membantu ({helpfulCount})</span>
+                    <span>Membantu ({helpfulCount})</span>
                   </button>
                 </div>
               </Card>

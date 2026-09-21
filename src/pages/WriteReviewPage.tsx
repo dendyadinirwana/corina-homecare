@@ -71,9 +71,9 @@ export const WriteReviewPage: React.FC = () => {
   };
 
   return (
-    <MobileFrame hideNav={true} contentClassName="p-0">
+    <MobileFrame hideNav={true} contentClassName="p-0 flex flex-col">
       {/* 1. Modal Sheet Header */}
-      <div className="w-full h-[56px] px-4 flex items-center justify-between border-b border-border-hairline bg-surface sticky top-0 z-20">
+      <div className="w-full h-[56px] px-4 flex items-center justify-between border-b border-border-hairline bg-surface sticky top-0 z-20 shrink-0">
         <button
           type="button"
           aria-label="Tutup"
@@ -102,177 +102,178 @@ export const WriteReviewPage: React.FC = () => {
         </button>
       </div>
 
-      <form onSubmit={handleSubmit} className="p-4 space-y-4 pb-28">
-        {/* 2. Completed Visit Summary Card */}
-        <Card
-          data-testid="visit-summary-card"
-          className="p-3.5 bg-card border border-border-hairline rounded-2xl flex items-center gap-3 shadow-2xs"
-          radius="2xl"
-        >
-          <img
-            src="/doctor-profile.jpg"
-            alt="Corina Wulandari"
-            className="w-12 h-12 rounded-full object-cover border border-border-hairline shrink-0"
-          />
+      <form onSubmit={handleSubmit} className="flex-1 flex flex-col justify-between">
+        <div className="p-4 space-y-4">
+          {/* 2. Completed Visit Summary Card */}
+          <Card
+            data-testid="visit-summary-card"
+            className="p-3.5 bg-card border border-border-hairline rounded-2xl flex items-center gap-3 shadow-2xs"
+            radius="2xl"
+          >
+            <img
+              src="/doctor-profile.jpg"
+              alt="Corina Wulandari"
+              className="w-12 h-12 rounded-full object-cover border border-border-hairline shrink-0"
+            />
 
-          <div className="flex-1 min-w-0">
-            <div className="flex items-center justify-between gap-1">
-              <h2 className="text-xs font-bold text-ink-primary truncate">
-                Corina Wulandari
-              </h2>
+            <div className="flex-1 min-w-0">
+              <div className="flex items-center justify-between gap-1">
+                <h2 className="text-xs font-bold text-ink-primary truncate">
+                  Corina Wulandari
+                </h2>
+                <span
+                  data-testid="badge-visit-completed"
+                  className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#E8F8EE] text-[#1E3322] border border-[#C5E9D1] text-[10px] font-bold shrink-0"
+                >
+                  <CheckCircle2 className="w-3 h-3 stroke-[2.5]" />
+                  <span>• Kunjungan Selesai</span>
+                </span>
+              </div>
+              <p className="text-[11px] text-ink-muted truncate mt-0.5">
+                Kunjungan Medis ke Rumah • 25 Juni 2024
+              </p>
+            </div>
+          </Card>
+
+          {/* 3. Main Question & 5 Big Stars */}
+          <Card
+            className="p-5 bg-card border border-border-hairline rounded-3xl text-center space-y-3 shadow-sm"
+            radius="3xl"
+          >
+            <h2 className="text-sm font-bold text-ink-primary">
+              Bagaimana pengalaman kunjungan Anda?
+            </h2>
+
+            <div className="flex justify-center py-1">
+              <StarRating
+                data-testid="main-star-rating"
+                rating={mainRating}
+                interactive={true}
+                size="lg"
+                onChange={(val) => setMainRating(val)}
+              />
+            </div>
+
+            <div className="flex justify-center">
               <span
-                data-testid="badge-visit-completed"
-                className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#E8F8EE] text-[#1E3322] border border-[#C5E9D1] text-[10px] font-bold shrink-0"
+                data-testid="feedback-badge"
+                className="inline-block px-3.5 py-1.5 rounded-full bg-[#E8F8EE] text-[#1E3322] border border-[#C5E9D1] text-xs font-bold tracking-tight shadow-2xs"
               >
-                <CheckCircle2 className="w-3 h-3 stroke-[2.5]" />
-                <span>• Kunjungan Selesai</span>
+                {getFeedbackBadge(mainRating)}
               </span>
             </div>
-            <p className="text-[11px] text-ink-muted truncate mt-0.5">
-              Kunjungan Medis ke Rumah • 25 Juni 2024
-            </p>
-          </div>
-        </Card>
+          </Card>
 
-        {/* 3. Main Question & 5 Big Stars */}
-        <Card
-          className="p-5 bg-card border border-border-hairline rounded-3xl text-center space-y-3 shadow-sm"
-          radius="3xl"
-        >
-          <h2 className="text-sm font-bold text-ink-primary">
-            Bagaimana pengalaman kunjungan Anda?
-          </h2>
+          {/* 4. 3 Sub-Aspect Ratings */}
+          <Card
+            className="p-4 bg-card border border-border-hairline rounded-2xl space-y-3.5 shadow-2xs"
+            radius="2xl"
+          >
+            <h3 className="text-xs font-bold uppercase tracking-wider text-ink-muted">
+              Detail Penilaian Layanan
+            </h3>
 
-          <div className="flex justify-center py-1">
-            <StarRating
-              data-testid="main-star-rating"
-              rating={mainRating}
-              interactive={true}
-              size="lg"
-              onChange={(val) => setMainRating(val)}
+            <div className="space-y-3 divide-y divide-border-hairline">
+              {/* Punctuality */}
+              <div
+                data-testid="sub-rating-punctuality"
+                className="flex items-center justify-between pt-1 first:pt-0"
+              >
+                <div className="space-y-0.5">
+                  <span className="text-xs font-semibold text-ink-primary block">
+                    Ketepatan Waktu Kedatangan
+                  </span>
+                  <span className="text-[10px] text-ink-muted block">
+                    Kesesuaian jadwal janji temu
+                  </span>
+                </div>
+                <StarRating
+                  rating={punctualityRating}
+                  interactive={true}
+                  size="sm"
+                  onChange={(v) => setPunctualityRating(v)}
+                />
+              </div>
+
+              {/* Hygiene */}
+              <div
+                data-testid="sub-rating-hygiene"
+                className="flex items-center justify-between pt-2.5"
+              >
+                <div className="space-y-0.5">
+                  <span className="text-xs font-semibold text-ink-primary block">
+                    Higienitas & Kesiapan Alat Medis
+                  </span>
+                  <span className="text-[10px] text-ink-muted block">
+                    Sterilitas peralatan & APD
+                  </span>
+                </div>
+                <StarRating
+                  rating={hygieneRating}
+                  interactive={true}
+                  size="sm"
+                  onChange={(v) => setHygieneRating(v)}
+                />
+              </div>
+
+              {/* Friendliness */}
+              <div
+                data-testid="sub-rating-friendliness"
+                className="flex items-center justify-between pt-2.5"
+              >
+                <div className="space-y-0.5">
+                  <span className="text-xs font-semibold text-ink-primary block">
+                    Keramahan & Penjelasan Dokter
+                  </span>
+                  <span className="text-[10px] text-ink-muted block">
+                    Empati dan kejelasan diagnosa
+                  </span>
+                </div>
+                <StarRating
+                  rating={friendlinessRating}
+                  interactive={true}
+                  size="sm"
+                  onChange={(v) => setFriendlinessRating(v)}
+                />
+              </div>
+            </div>
+          </Card>
+
+          {/* 5. Experience Textarea */}
+          <div className="space-y-1.5">
+            <div className="flex items-center justify-between px-1">
+              <label
+                htmlFor="review-comment"
+                className="text-xs font-bold text-ink-primary"
+              >
+                Tuliskan Ulasan Pengalaman Anda
+              </label>
+              <span
+                data-testid="char-counter"
+                className="text-[11px] font-semibold text-ink-muted"
+              >
+                {comment.length}/500
+              </span>
+            </div>
+
+            <textarea
+              id="review-comment"
+              data-testid="textarea-review-comment"
+              rows={4}
+              maxLength={500}
+              value={comment}
+              onChange={(e) => setComment(e.target.value)}
+              placeholder="Ceritakan bagaimana pelayanan Ners Corina saat mengunjungi rumah Anda..."
+              className="w-full min-h-[100px] p-3.5 text-xs text-ink-primary bg-card border border-border-hairline rounded-2xl focus:outline-none focus:ring-2 focus:ring-forest/20 focus:border-forest/40 transition-all resize-none placeholder:text-ink-muted leading-relaxed"
             />
           </div>
 
-          <div className="flex justify-center">
-            <span
-              data-testid="feedback-badge"
-              className="inline-block px-3.5 py-1.5 rounded-full bg-[#E8F8EE] text-[#1E3322] border border-[#C5E9D1] text-xs font-bold tracking-tight shadow-2xs"
-            >
-              {getFeedbackBadge(mainRating)}
-            </span>
-          </div>
-        </Card>
-
-        {/* 4. 3 Sub-Aspect Ratings */}
-        <Card
-          className="p-4 bg-card border border-border-hairline rounded-2xl space-y-3.5 shadow-2xs"
-          radius="2xl"
-        >
-          <h3 className="text-xs font-bold uppercase tracking-wider text-ink-muted">
-            Detail Penilaian Layanan
-          </h3>
-
-          <div className="space-y-3 divide-y divide-border-hairline">
-            {/* Punctuality */}
-            <div
-              data-testid="sub-rating-punctuality"
-              className="flex items-center justify-between pt-1 first:pt-0"
-            >
-              <div className="space-y-0.5">
-                <span className="text-xs font-semibold text-ink-primary block">
-                  Ketepatan Waktu Kedatangan
-                </span>
-                <span className="text-[10px] text-ink-muted block">
-                  Kesesuaian jadwal janji temu
-                </span>
-              </div>
-              <StarRating
-                rating={punctualityRating}
-                interactive={true}
-                size="sm"
-                onChange={(v) => setPunctualityRating(v)}
-              />
-            </div>
-
-            {/* Hygiene */}
-            <div
-              data-testid="sub-rating-hygiene"
-              className="flex items-center justify-between pt-2.5"
-            >
-              <div className="space-y-0.5">
-                <span className="text-xs font-semibold text-ink-primary block">
-                  Higienitas & Kesiapan Alat Medis
-                </span>
-                <span className="text-[10px] text-ink-muted block">
-                  Sterilitas peralatan & APD
-                </span>
-              </div>
-              <StarRating
-                rating={hygieneRating}
-                interactive={true}
-                size="sm"
-                onChange={(v) => setHygieneRating(v)}
-              />
-            </div>
-
-            {/* Friendliness */}
-            <div
-              data-testid="sub-rating-friendliness"
-              className="flex items-center justify-between pt-2.5"
-            >
-              <div className="space-y-0.5">
-                <span className="text-xs font-semibold text-ink-primary block">
-                  Keramahan & Penjelasan Dokter
-                </span>
-                <span className="text-[10px] text-ink-muted block">
-                  Empati dan kejelasan diagnosa
-                </span>
-              </div>
-              <StarRating
-                rating={friendlinessRating}
-                interactive={true}
-                size="sm"
-                onChange={(v) => setFriendlinessRating(v)}
-              />
-            </div>
-          </div>
-        </Card>
-
-        {/* 5. Experience Textarea */}
-        <div className="space-y-1.5">
-          <div className="flex items-center justify-between px-1">
-            <label
-              htmlFor="review-comment"
-              className="text-xs font-bold text-ink-primary"
-            >
-              Tuliskan Ulasan Pengalaman Anda
-            </label>
-            <span
-              data-testid="char-counter"
-              className="text-[11px] font-semibold text-ink-muted"
-            >
-              {comment.length}/500
-            </span>
-          </div>
-
-          <textarea
-            id="review-comment"
-            data-testid="textarea-review-comment"
-            rows={4}
-            maxLength={500}
-            value={comment}
-            onChange={(e) => setComment(e.target.value)}
-            placeholder="Ceritakan bagaimana pelayanan Ners Corina saat mengunjungi rumah Anda..."
-            className="w-full min-h-[100px] p-3.5 text-xs text-ink-primary bg-card border border-border-hairline rounded-2xl focus:outline-none focus:ring-2 focus:ring-forest/20 focus:border-forest/40 transition-all resize-none placeholder:text-ink-muted leading-relaxed"
-          />
-        </div>
-
-        {/* 6. Anonymous Patient iOS Switch Card */}
-        <Card
-          className="p-4 bg-card border border-border-hairline rounded-2xl shadow-2xs"
-          radius="2xl"
-        >
-          <div className="flex items-center justify-between gap-3">
+          {/* 6. Anonymous Patient iOS Switch Card with Label association */}
+          <label
+            htmlFor="switch-anonymous-input"
+            data-testid="card-anonymous-toggle"
+            className="p-4 bg-card border border-border-hairline rounded-2xl shadow-2xs flex items-center justify-between gap-3 cursor-pointer select-none transition-colors hover:bg-card-hover min-h-[44px]"
+          >
             <div className="space-y-0.5 flex-1 pr-2">
               <span className="text-xs font-bold text-ink-primary block">
                 Tampilkan sebagai Pasien Anonim
@@ -282,18 +283,19 @@ export const WriteReviewPage: React.FC = () => {
               </p>
             </div>
             <IosSwitch
+              id="switch-anonymous-input"
               data-testid="switch-anonymous"
               aria-label="Tampilkan sebagai Pasien Anonim"
               checked={isAnonymous}
               onChange={(checked) => setIsAnonymous(checked)}
             />
-          </div>
-        </Card>
+          </label>
+        </div>
 
         {/* 7. Sticky Bottom CTA Button */}
         <div
           data-testid="sticky-submit-footer"
-          className="fixed bottom-0 inset-x-0 sm:absolute bg-surface/95 backdrop-blur-md border-t border-border-hairline p-4 z-20 flex items-center justify-center shadow-sm"
+          className="sticky bottom-0 inset-x-0 z-20 mt-auto bg-surface/95 backdrop-blur-md border-t border-border-hairline p-4 px-5 shadow-sm flex items-center justify-center"
         >
           <Button
             type="submit"
