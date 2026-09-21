@@ -21,7 +21,7 @@ test.describe('Task 8: Full Navigation Orchestration & Responsiveness', () => {
     // Route 1: Home Portal (/)
     await homePage.goto();
     await expect.soft(page).toHaveURL('/');
-    await expect.soft(homePage.statusPill).toBeVisible();
+    await expect.soft(homePage.doctorAvatar).toBeVisible();
     await expect.soft(homePage.doctorName).toHaveText('Corina Wulandari');
     await expect.soft(homePage.orderButton).toBeVisible();
 
@@ -76,13 +76,13 @@ test.describe('Task 8: Full Navigation Orchestration & Responsiveness', () => {
     // Attempt navigation to a non-existent route
     await page.goto('/halaman-tidak-ditemukan-404');
     await expect.soft(page).toHaveURL('/');
-    await expect.soft(homePage.statusPill).toBeVisible();
+    await expect.soft(homePage.doctorAvatar).toBeVisible();
     await expect.soft(homePage.doctorName).toHaveText('Corina Wulandari');
 
     // Attempt navigation to a nested non-existent route
     await page.goto('/booking/invalid/route/test');
     await expect.soft(page).toHaveURL('/');
-    await expect.soft(homePage.statusPill).toBeVisible();
+    await expect.soft(homePage.doctorAvatar).toBeVisible();
   });
 
   test('inter-route navigation flows work seamlessly between pages', async ({ page }) => {

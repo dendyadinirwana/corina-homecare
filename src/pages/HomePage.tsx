@@ -18,25 +18,8 @@ export const HomePage: React.FC = () => {
 
   return (
     <MobileFrame hideNav={true} contentClassName="p-0 pb-10">
-      {/* Top Status Pill */}
-      <div className="pt-3 pb-2 px-4 flex justify-center">
-        <div
-          data-testid="status-pill"
-          className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#E8F8EE] border border-[#CDEED8] text-[#1E3322] text-xs font-semibold tracking-tight shadow-sm"
-        >
-          <span className="relative flex h-2.5 w-2.5 shrink-0">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#34C759] opacity-75"></span>
-            <span
-              data-testid="status-green-dot"
-              className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#34C759]"
-            ></span>
-          </span>
-          <span>• Menerima Kunjungan Hari Ini • Tiba 30 Menit</span>
-        </div>
-      </div>
-
       {/* Doctor Bio Card */}
-      <div className="px-4 pt-2 pb-4 flex flex-col items-center text-center">
+      <div className="px-4 pt-6 pb-4 flex flex-col items-center text-center">
         <div className="relative mb-3">
           <img
             src="/doctor-profile.jpg"

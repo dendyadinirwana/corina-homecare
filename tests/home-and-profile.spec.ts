@@ -5,13 +5,9 @@ test.describe('Task 4: Layar 1 (Beranda & Bio-Link Hub)', () => {
     await page.goto('/');
   });
 
-  test('renders status pill, avatar, doctor credentials, and experience badges', async ({ page }) => {
-    // Status pill
-    const statusPill = page.getByTestId('status-pill');
-    await expect.soft(statusPill).toBeVisible();
-    await expect.soft(statusPill).toContainText('Menerima Kunjungan Hari Ini');
-    await expect.soft(statusPill).toContainText('Tiba 30 Menit');
-    await expect.soft(page.getByTestId('status-green-dot')).toBeVisible();
+  test('renders avatar, doctor credentials, and experience badges without status pill', async ({ page }) => {
+    // Status pill should not be attached
+    await expect.soft(page.getByTestId('status-pill')).not.toBeAttached();
 
     // Doctor Avatar
     const avatar = page.getByTestId('doctor-avatar');
