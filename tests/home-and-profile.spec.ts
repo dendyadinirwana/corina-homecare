@@ -30,7 +30,7 @@ test.describe('Task 4: Layar 1 (Beranda & Bio-Link Hub)', () => {
     expect.soft(fkBox?.height).toBeGreaterThanOrEqual(44);
 
     const badgeExp = page.getByTestId('badge-experience');
-    await expect.soft(badgeExp).toContainText('10+ Thn Pengalaman');
+    await expect.soft(badgeExp).toContainText('10+ Thn Exp');
     const expBox = await badgeExp.boundingBox();
     expect.soft(expBox?.height).toBeGreaterThanOrEqual(44);
 
