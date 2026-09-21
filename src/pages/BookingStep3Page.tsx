@@ -123,11 +123,15 @@ export const BookingStep3Page: React.FC = () => {
     try {
       const result = await submitBooking(currentDraft);
 
-      if (!result.success && result.error === 'SLOT_ALREADY_BOOKED') {
-        setConflictError(
-          result.message ||
-            'Slot jadwal pada jam ini sudah dipesan oleh pasien lain. Silakan pilih jadwal lain.'
-        );
+      if (!result.success) {
+        if (result.error === 'SLOT_ALREADY_BOOKED') {
+          setConflictError(
+            result.message ||
+              'Slot jadwal pada jam ini sudah dipesan oleh pasien lain. Silakan pilih jadwal lain.'
+          );
+        } else {
+          alert(result.message || 'Terjadi kendala saat memproses reservasi. Silakan coba lagi.');
+        }
         return;
       }
 

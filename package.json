@@ -9,7 +9,7 @@
     "preview": "vite preview",
     "test:e2e": "playwright test",
     "d1:migrate:local": "wrangler d1 execute homecare-db --local --file=./migrations/0001_initial_schema.sql",
-    "dev:pages": "wrangler pages dev dist --d1 DB=homecare-db"
+    "dev:pages": "npm run build && wrangler pages dev dist --d1 DB=homecare-db"
   },
   "dependencies": {
     "clsx": "^2.1.1",
