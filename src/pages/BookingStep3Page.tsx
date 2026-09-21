@@ -9,6 +9,7 @@ import {
   CheckCircle2,
   FileText,
   MessageCircle,
+  AlertCircle,
 } from 'lucide-react';
 import { MobileFrame } from '../components/layout/MobileFrame';
 import { Stepper } from '../components/ui/Stepper';
@@ -19,6 +20,7 @@ import { MapPicker } from '../components/map/MapPicker';
 import { useBookingStore } from '../store/bookingStore';
 import { formatIndonesianDate } from '../utils/calendar';
 import { createWhatsAppBookingUrl } from '../utils/whatsapp';
+import { submitBooking } from '../services/api';
 import type { Coordinates } from '../types';
 
 const COMPLAINT_PRESETS = [
@@ -34,6 +36,10 @@ export const BookingStep3Page: React.FC = () => {
   const draft = useBookingStore((state) => state.draft);
   const setDraft = useBookingStore((state) => state.setDraft);
   const confirmBooking = useBookingStore((state) => state.confirmBooking);
+  const setConfirmedBooking = useBookingStore((state) => state.setConfirmedBooking);
+
+  const [conflictError, setConflictError] = useState<string | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Local form state initialized from draft
   const [patientName, setPatientName] = useState(
@@ -87,35 +93,62 @@ export const BookingStep3Page: React.FC = () => {
     navigate('/booking/langkah-2');
   };
 
-  const handleConfirm = () => {
+  const handleConfirm = async () => {
+    if (isSubmitting) return;
+
     const finalComplaint = complaintDetail || complaintCategory;
-    setDraft({
+    const currentDraft = {
+      ...draft,
       patientName,
       patientPhone,
       address,
       landmark,
       coordinates,
       complaint: finalComplaint,
-    });
-    confirmBooking();
+    };
+    setDraft(currentDraft);
 
-    const whatsappUrl = createWhatsAppBookingUrl({
-      patientName,
-      patientPhone,
-      serviceType: draft.serviceType,
-      date: draft.date,
-      time: draft.time,
-      address,
-      landmark,
-      coordinates,
-      complaint: finalComplaint,
-    });
+    setIsSubmitting(true);
+    try {
+      const result = await submitBooking(currentDraft);
 
-    if (typeof window !== 'undefined') {
-      window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+      if (!result.success && result.error === 'SLOT_ALREADY_BOOKED') {
+        setConflictError(
+          result.message ||
+            'Slot jadwal pada jam ini sudah dipesan oleh pasien lain. Silakan pilih jadwal lain.'
+        );
+        return;
+      }
+
+      const confirmed = confirmBooking();
+      if (result.bookingId && confirmed) {
+        setConfirmedBooking({ ...confirmed, id: result.bookingId });
+      }
+
+      const whatsappUrl = createWhatsAppBookingUrl({
+        patientName,
+        patientPhone,
+        serviceType: draft.serviceType,
+        date: draft.date,
+        time: draft.time,
+        address,
+        landmark,
+        coordinates,
+        complaint: finalComplaint,
+      });
+
+      if (typeof window !== 'undefined') {
+        window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+      }
+
+      navigate('/booking/konfirmasi');
+    } catch (err) {
+      console.error('Failed to submit booking:', err);
+      confirmBooking();
+      navigate('/booking/konfirmasi');
+    } finally {
+      setIsSubmitting(false);
     }
-
-    navigate('/booking/konfirmasi');
   };
 
   return (
@@ -381,6 +414,8 @@ export const BookingStep3Page: React.FC = () => {
           variant="lime"
           size="lg"
           fullWidth
+          isLoading={isSubmitting}
+          disabled={isSubmitting}
           onClick={handleConfirm}
           className="shadow-sm min-h-[48px] flex items-center justify-center gap-2 font-bold"
         >
@@ -388,6 +423,40 @@ export const BookingStep3Page: React.FC = () => {
           <span>Konfirmasi Janji Temu via WhatsApp →</span>
         </Button>
       </div>
+
+      {/* Slot Collision Conflict Modal */}
+      {conflictError && (
+        <div
+          data-testid="modal-slot-conflict"
+          role="dialog"
+          aria-modal="true"
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200"
+        >
+          <div className="w-full max-w-[340px] bg-white rounded-3xl p-6 shadow-2xl border border-border-hairline text-center space-y-4">
+            <div className="w-12 h-12 mx-auto rounded-full bg-amber-500/10 flex items-center justify-center text-amber-600">
+              <AlertCircle className="w-6 h-6" />
+            </div>
+            <div className="space-y-1.5">
+              <h3 className="text-base font-bold text-ink-primary">
+                Jadwal Sudah Terisi
+              </h3>
+              <p className="text-xs text-ink-secondary leading-relaxed">
+                {conflictError}
+              </p>
+            </div>
+            <Button
+              data-testid="btn-reselect-slot"
+              variant="forest"
+              size="md"
+              fullWidth
+              onClick={() => navigate('/booking/langkah-2')}
+              className="min-h-[44px] font-bold"
+            >
+              Pilih Jam Lain
+            </Button>
+          </div>
+        </div>
+      )}
     </MobileFrame>
   );
 };
