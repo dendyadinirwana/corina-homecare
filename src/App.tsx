@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { HomePage } from './pages/HomePage';
 import { ProfilePage } from './pages/ProfilePage';
 import { BookingStep1Page } from './pages/BookingStep1Page';
@@ -22,6 +22,7 @@ export default function App() {
         <Route path="/ulasan" element={<ReviewsPage />} />
         <Route path="/ulasan/tulis" element={<WriteReviewPage />} />
         <Route path="/demo" element={<DemoLayoutPage />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>
   );
