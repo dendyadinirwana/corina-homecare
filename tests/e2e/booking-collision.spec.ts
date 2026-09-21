@@ -1,6 +1,13 @@
 import { test, expect } from '@playwright/test';
 
 test.describe('Task 5: Booking Step 3 Concurrency Collision Guard', () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto('/');
+    await page.evaluate(() => {
+      localStorage.removeItem('homecare_d1_mock_bookings');
+    });
+  });
+
   test.afterEach(async ({ page }) => {
     await page.evaluate(() => {
       localStorage.removeItem('homecare_d1_mock_bookings');

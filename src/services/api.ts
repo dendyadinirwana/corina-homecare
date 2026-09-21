@@ -103,6 +103,15 @@ export async function submitBooking(draft: Partial<BookingDraft>): Promise<Booki
         message: data.message || 'Data reservasi belum lengkap.',
       };
     }
+
+    if (response.status >= 500) {
+      const data = await response.json().catch(() => ({}));
+      return {
+        success: false,
+        error: data.error || 'SERVER_ERROR',
+        message: data.message || 'Terjadi gangguan pada server. Silakan coba lagi.',
+      };
+    }
   } catch {
     // Fallback: mock store execution with collision detection
   }

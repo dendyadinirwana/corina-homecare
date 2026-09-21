@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   User,
@@ -40,6 +40,17 @@ export const BookingStep3Page: React.FC = () => {
 
   const [conflictError, setConflictError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  useEffect(() => {
+    if (!conflictError) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        navigate('/booking/langkah-2');
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [conflictError, navigate]);
 
   // Local form state initialized from draft
   const [patientName, setPatientName] = useState(
@@ -430,6 +441,7 @@ export const BookingStep3Page: React.FC = () => {
           data-testid="modal-slot-conflict"
           role="dialog"
           aria-modal="true"
+          aria-labelledby="modal-slot-conflict-title"
           className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200"
         >
           <div className="w-full max-w-[340px] bg-white rounded-3xl p-6 shadow-2xl border border-border-hairline text-center space-y-4">
@@ -437,7 +449,7 @@ export const BookingStep3Page: React.FC = () => {
               <AlertCircle className="w-6 h-6" />
             </div>
             <div className="space-y-1.5">
-              <h3 className="text-base font-bold text-ink-primary">
+              <h3 id="modal-slot-conflict-title" className="text-base font-bold text-ink-primary">
                 Jadwal Sudah Terisi
               </h3>
               <p className="text-xs text-ink-secondary leading-relaxed">
@@ -449,6 +461,7 @@ export const BookingStep3Page: React.FC = () => {
               variant="forest"
               size="md"
               fullWidth
+              autoFocus
               onClick={() => navigate('/booking/langkah-2')}
               className="min-h-[44px] font-bold"
             >

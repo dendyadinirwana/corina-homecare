@@ -29,11 +29,15 @@ export const BookingStep2Page: React.FC = () => {
 
   useEffect(() => {
     let isMounted = true;
-    fetchSlotAvailability(selectedDate).then((slots) => {
-      if (!isMounted) return;
-      setBookedSlots(slots);
-      setSelectedTime((curr) => (slots.includes(curr) ? '' : curr));
-    });
+    fetchSlotAvailability(selectedDate)
+      .then((slots) => {
+        if (!isMounted) return;
+        setBookedSlots(slots);
+        setSelectedTime((curr) => (slots.includes(curr) ? '' : curr));
+      })
+      .catch((err) => {
+        console.error('Failed to fetch slot availability:', err);
+      });
     return () => {
       isMounted = false;
     };
@@ -154,6 +158,7 @@ export const BookingStep2Page: React.FC = () => {
                         type="button"
                         data-testid={`time-slot-${slot}`}
                         data-active={isActive ? 'true' : 'false'}
+                        aria-label={`${slot}${isBooked ? ', Terisi' : ''}`}
                         disabled={isBooked}
                         onClick={() => !isBooked && setSelectedTime(slot)}
                         className={`min-h-[44px] px-2 py-2 rounded-xl text-xs font-semibold transition-all duration-quick btn-tactile flex flex-col items-center justify-center relative ${

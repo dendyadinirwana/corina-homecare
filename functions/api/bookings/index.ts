@@ -76,8 +76,8 @@ export const onRequestPost = async (context: { request: Request; env: Env }) => 
         patientPhone.trim(),
         address.trim(),
         landmark ? landmark.trim() : null,
-        coordinates?.lat || null,
-        coordinates?.lng || null,
+        coordinates?.lat ?? null,
+        coordinates?.lng ?? null,
         complaint.trim()
       )
       .run();
