@@ -79,12 +79,12 @@ export const ProfilePage: React.FC = () => {
         {/* Contact Pills Row */}
         <div className="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1">
           <a
-            href="tel:081234567890"
+            href="tel:087772077213"
             data-testid="contact-pill-phone"
             className="inline-flex items-center gap-1.5 min-h-[44px] px-4 py-2 rounded-full bg-card border border-border-hairline text-xs font-semibold text-ink-primary hover:bg-card-hover btn-tactile shrink-0"
           >
             <Phone className="w-3.5 h-3.5 text-forest" />
-            <span>0812-3456-7890</span>
+            <span>0877-7207-7213</span>
           </a>
 
           <a

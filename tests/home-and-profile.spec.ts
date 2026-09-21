@@ -56,7 +56,7 @@ test.describe('Task 4: Layar 1 (Beranda & Bio-Link Hub)', () => {
 
     // Check WhatsApp href
     const waLink = page.getByTestId('whatsapp-link');
-    await expect.soft(waLink).toHaveAttribute('href', /wa\.me\/6281234567890/);
+    await expect.soft(waLink).toHaveAttribute('href', /wa\.me\/6287772077213/);
   });
 
   test('renders 4 service cards and Pesan button navigates to /booking/langkah-1', async ({ page }) => {
@@ -128,8 +128,8 @@ test.describe('Task 4: Layar 2 (Profil & Detail Klinis Dokter)', () => {
 
   test('renders contact pills with valid links and min 44px touch targets', async ({ page }) => {
     const pillTel = page.getByTestId('contact-pill-phone');
-    await expect.soft(pillTel).toContainText('0812-3456-7890');
-    await expect.soft(pillTel).toHaveAttribute('href', /tel:081234567890/);
+    await expect.soft(pillTel).toContainText('0877-7207-7213');
+    await expect.soft(pillTel).toHaveAttribute('href', /tel:087772077213/);
     const telBox = await pillTel.boundingBox();
     expect.soft(telBox?.height).toBeGreaterThanOrEqual(44);
 

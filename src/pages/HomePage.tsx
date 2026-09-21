@@ -79,7 +79,7 @@ export const HomePage: React.FC = () => {
       {/* Emergency WhatsApp Card */}
       <div className="px-4 mb-4">
         <a
-          href="https://wa.me/6281234567890?text=Halo%20Dokter%20Corina,%20saya%20memerlukan%20tindakan%20homecare"
+          href="https://wa.me/6287772077213?text=Halo%20Dokter%20Corina,%20saya%20memerlukan%20tindakan%20homecare"
           target="_blank"
           rel="noopener noreferrer"
           data-testid="whatsapp-link"
