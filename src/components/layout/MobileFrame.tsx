@@ -20,6 +20,7 @@ export interface MobileFrameProps {
   showBack?: boolean;
   onBack?: () => void;
   rightAction?: React.ReactNode;
+  footer?: React.ReactNode;
   className?: string;
   contentClassName?: string;
 }
@@ -31,6 +32,7 @@ export const MobileFrame: React.FC<MobileFrameProps> = ({
   showBack = false,
   onBack,
   rightAction,
+  footer,
   className,
   contentClassName,
 }) => {
@@ -41,6 +43,9 @@ export const MobileFrame: React.FC<MobileFrameProps> = ({
   useGSAP(
     () => {
       // Scroll to top on page transition for clean mobile experience
+      if (mainRef.current) {
+        mainRef.current.scrollTop = 0;
+      }
       if (typeof window !== 'undefined') {
         window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
       }
@@ -126,11 +131,11 @@ export const MobileFrame: React.FC<MobileFrameProps> = ({
         ref={frameRef}
         data-testid="mobile-frame"
         className={cn(
-          'w-full min-h-screen sm:min-h-[852px] sm:max-w-[420px] bg-canvas flex flex-col relative sm:rounded-[44px] sm:shadow-2xl sm:border sm:border-border-hairline sm:overflow-hidden',
+          'w-full h-[100dvh] max-h-[100dvh] sm:h-[852px] sm:max-h-[852px] sm:max-w-[420px] bg-canvas flex flex-col relative overflow-hidden sm:rounded-[44px] sm:shadow-2xl sm:border sm:border-border-hairline',
           className
         )}
       >
-        {/* Optional Top Navigation Bar */}
+        {/* Fixed Top Navigation Bar */}
         {!hideNav && (
           <TopNavBar
             title={title}
@@ -140,16 +145,23 @@ export const MobileFrame: React.FC<MobileFrameProps> = ({
           />
         )}
 
-        {/* Main Content */}
+        {/* Scrollable Middle Main Content */}
         <main
           ref={mainRef}
           className={cn(
-            'flex-1 w-full relative flex flex-col',
+            'flex-1 w-full overflow-y-auto overflow-x-hidden no-scrollbar scroll-touch relative flex flex-col',
             contentClassName
           )}
         >
           {children}
         </main>
+
+        {/* Fixed Bottom CTA / Footer */}
+        {footer && (
+          <footer className="shrink-0 w-full z-20 border-t border-border-hairline bg-surface/95 backdrop-blur-md">
+            {footer}
+          </footer>
+        )}
       </div>
     </div>
   );

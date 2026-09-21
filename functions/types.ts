@@ -19,6 +19,9 @@ export interface D1Result<T = unknown> {
 
 export interface Env {
   DB: D1Database;
+  ASSETS: {
+    fetch: (input: RequestInfo | URL, init?: RequestInit) => Promise<Response>;
+  };
 }
 
 export interface BookingRow {

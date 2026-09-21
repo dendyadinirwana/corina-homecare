@@ -103,9 +103,23 @@ export const BookingStep1Page: React.FC = () => {
       title="Pilih Tanggal & Kunjungan"
       showBack={true}
       onBack={() => navigate('/')}
-      contentClassName="p-0 flex flex-col justify-between"
+      contentClassName="p-0 flex flex-col"
+      footer={
+        <div className="w-full p-4 pb-[max(1rem,calc(0.75rem+env(safe-area-inset-bottom,0px)))]">
+          <Button
+            data-testid="btn-next-step-1"
+            variant="lime"
+            size="lg"
+            fullWidth
+            onClick={handleContinue}
+            className="shadow-sm min-h-[48px] font-bold"
+          >
+            Lanjut Pilih Jam Kunjungan →
+          </Button>
+        </div>
+      }
     >
-      <div className="px-4 pt-3 pb-24 space-y-4">
+      <div className="px-4 pt-3 pb-8 space-y-4">
         {/* Stepper Wizard (Step 1 active) */}
         <div className="ios-stagger">
           <Stepper currentStep={1} />
@@ -318,20 +332,6 @@ export const BookingStep1Page: React.FC = () => {
             </div>
           </div>
         </div>
-      </div>
-
-      {/* Sticky Bottom CTA */}
-      <div className="sticky bottom-0 w-full bg-surface/90 backdrop-blur-md border-t border-border-subtle p-4 pb-[max(1rem,calc(0.75rem+env(safe-area-inset-bottom,0px)))] z-10">
-        <Button
-          data-testid="btn-next-step-1"
-          variant="lime"
-          size="lg"
-          fullWidth
-          onClick={handleContinue}
-          className="shadow-sm"
-        >
-          Lanjut Pilih Jam Kunjungan →
-        </Button>
       </div>
     </MobileFrame>
   );

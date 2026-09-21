@@ -78,9 +78,24 @@ export const BookingStep2Page: React.FC = () => {
       title="Buat Janji Temu"
       showBack={true}
       onBack={() => navigate('/booking/langkah-1')}
-      contentClassName="p-0 flex flex-col justify-between"
+      contentClassName="p-0 flex flex-col"
+      footer={
+        <div className="w-full p-4 pb-[max(1rem,calc(0.75rem+env(safe-area-inset-bottom,0px)))]">
+          <Button
+            data-testid="btn-next-step-2"
+            variant="lime"
+            size="lg"
+            fullWidth
+            disabled={!selectedTime}
+            onClick={handleContinue}
+            className="shadow-sm min-h-[48px] font-bold"
+          >
+            Lanjut ke Data Pasien →
+          </Button>
+        </div>
+      }
     >
-      <div className="px-4 pt-3 pb-24 space-y-4">
+      <div className="px-4 pt-3 pb-8 space-y-4">
         {/* Stepper Wizard (Step 2 active, Step 1 completed) */}
         <div className="ios-stagger">
           <Stepper currentStep={2} />
@@ -202,21 +217,6 @@ export const BookingStep2Page: React.FC = () => {
             Waktu mengacu pada <strong className="text-ink-primary font-semibold">Waktu Indonesia Barat (WIB)</strong>. Dokter tiba tepat waktu membawa <strong className="text-ink-primary font-semibold">peralatan medis steril</strong>.
           </p>
         </div>
-      </div>
-
-      {/* Sticky Bottom CTA */}
-      <div className="sticky bottom-0 w-full bg-surface/90 backdrop-blur-md border-t border-border-subtle p-4 pb-[max(1rem,calc(0.75rem+env(safe-area-inset-bottom,0px)))] z-10">
-        <Button
-          data-testid="btn-next-step-2"
-          variant="lime"
-          size="lg"
-          fullWidth
-          disabled={!selectedTime}
-          onClick={handleContinue}
-          className="shadow-sm"
-        >
-          Lanjut ke Data Pasien →
-        </Button>
       </div>
     </MobileFrame>
   );

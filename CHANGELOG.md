@@ -5,6 +5,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.3.0] - 2026-09-21
+
+### Added
+- **Native App Shell Layout (Fixed Navbar & Fixed Bottom CTA)**:
+  - Added dedicated `footer` slot to `MobileFrame.tsx` with frosted glass backdrop blur (`bg-surface/95 backdrop-blur-md`) and safe-area inset padding.
+  - Pinned Top Navigation Bar (`TopNavBar`) and Bottom CTA permanently in place like a native mobile app (Halodoc/iOS Health), completely immune to page scroll.
+  - Isolated scrollable middle viewport (`<main>`) with iOS/Android inertia scroll (`scroll-touch`, `overscroll-behavior-y: contain`).
+- **Cloudflare Pages Deployment Configuration**:
+  - Configured SPA fallback generation (`200.html` & `404.html`) in the production build pipeline.
+  - Connected Cloudflare Pages with D1 database binding (`homecare-db`) on custom domain `corinawulandari.my.id` and `corina-homecare.pages.dev`.
+
+### Changed
+- Refactored `BookingStep1Page`, `BookingStep2Page`, `BookingStep3Page`, and `ProfilePage` to utilize the fixed `footer` slot on `MobileFrame`.
+
+---
+
 ## [1.2.0] - 2026-09-21
 
 ### Added

@@ -23,7 +23,35 @@ export const ProfilePage: React.FC = () => {
   const [isFavorite, setIsFavorite] = useState(false);
 
   return (
-    <MobileFrame hideNav={true} contentClassName="p-0">
+    <MobileFrame
+      hideNav={true}
+      contentClassName="p-0 pb-6"
+      footer={
+        <div
+          data-testid="sticky-booking-footer"
+          className="sticky bottom-0 w-full p-4 px-5 pb-[max(1rem,calc(0.75rem+env(safe-area-inset-bottom,0px)))] flex items-center justify-between gap-4"
+        >
+          <div className="flex flex-col">
+            <span className="text-[11px] font-semibold uppercase tracking-wider text-ink-muted">
+              Biaya konsultasi
+            </span>
+            <span className="text-lg font-bold text-ink-primary tracking-tight">
+              Rp 250.000
+            </span>
+          </div>
+
+          <Button
+            variant="lime"
+            size="lg"
+            data-testid="btn-jadwalkan-kunjungan"
+            className="flex-1 max-w-[220px] font-bold text-sm shadow-md"
+            onClick={() => navigate('/booking/langkah-1')}
+          >
+            Jadwalkan Kunjungan
+          </Button>
+        </div>
+      }
+    >
       {/* Hero Photo Section */}
       <div className="relative w-full h-[320px] min-h-[320px] shrink-0 bg-forest/10 overflow-hidden">
         <img
@@ -387,31 +415,6 @@ export const ProfilePage: React.FC = () => {
             </div>
           </div>
         </Card>
-      </div>
-
-      {/* Sticky Booking Footer */}
-      <div
-        data-testid="sticky-booking-footer"
-        className="sticky bottom-0 inset-x-0 bg-surface/95 backdrop-blur-md border-t border-border-hairline p-4 px-5 pb-[max(1rem,calc(0.75rem+env(safe-area-inset-bottom,0px)))] z-20 flex items-center justify-between gap-4 mt-auto shadow-sm"
-      >
-        <div className="flex flex-col">
-          <span className="text-[11px] font-semibold uppercase tracking-wider text-ink-muted">
-            Biaya konsultasi
-          </span>
-          <span className="text-lg font-bold text-ink-primary tracking-tight">
-            Rp 250.000
-          </span>
-        </div>
-
-        <Button
-          variant="lime"
-          size="lg"
-          data-testid="btn-jadwalkan-kunjungan"
-          className="flex-1 max-w-[220px] font-bold text-sm shadow-md"
-          onClick={() => navigate('/booking/langkah-1')}
-        >
-          Jadwalkan Kunjungan
-        </Button>
       </div>
     </MobileFrame>
   );
