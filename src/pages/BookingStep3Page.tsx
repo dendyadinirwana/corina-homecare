@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   User,
@@ -21,6 +21,7 @@ import { useBookingStore } from '../store/bookingStore';
 import { formatIndonesianDate } from '../utils/calendar';
 import { createWhatsAppBookingUrl } from '../utils/whatsapp';
 import { submitBooking } from '../services/api';
+import { useGSAP, animateBottomSheetEntrance } from '../lib/motion';
 import type { Coordinates } from '../types';
 
 const COMPLAINT_PRESETS = [
@@ -40,6 +41,17 @@ export const BookingStep3Page: React.FC = () => {
 
   const [conflictError, setConflictError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const sheetRef = useRef<HTMLDivElement>(null);
+  const backdropRef = useRef<HTMLDivElement>(null);
+
+  useGSAP(
+    () => {
+      if (conflictError && sheetRef.current) {
+        animateBottomSheetEntrance(sheetRef.current, backdropRef.current);
+      }
+    },
+    { dependencies: [conflictError] }
+  );
 
   useEffect(() => {
     if (!conflictError) return;
@@ -443,16 +455,30 @@ export const BookingStep3Page: React.FC = () => {
         </Button>
       </div>
 
-      {/* Slot Collision Conflict Modal */}
+      {/* Slot Collision Conflict Bottom Sheet */}
       {conflictError && (
         <div
           data-testid="modal-slot-conflict"
           role="dialog"
           aria-modal="true"
           aria-labelledby="modal-slot-conflict-title"
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200"
+          className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4"
         >
-          <div className="w-full max-w-[340px] bg-white rounded-3xl p-6 shadow-2xl border border-border-hairline text-center space-y-4">
+          {/* Backdrop with Soft Blur */}
+          <div
+            ref={backdropRef}
+            className="fixed inset-0 bg-black/60 backdrop-blur-xs cursor-pointer"
+            onClick={() => navigate('/booking/langkah-2')}
+          />
+
+          {/* Bottom Sheet Container */}
+          <div
+            ref={sheetRef}
+            className="w-full sm:max-w-[380px] bg-white rounded-t-[32px] sm:rounded-[32px] p-6 pb-[max(1.75rem,calc(1.25rem+env(safe-area-inset-bottom,0px)))] shadow-2xl border-t sm:border border-border-hairline text-center space-y-4 relative z-10"
+          >
+            {/* Tactile drag indicator bar for mobile */}
+            <div className="w-10 h-1 rounded-full bg-ink-muted/30 mx-auto -mt-2 mb-2 sm:hidden" />
+
             <div className="w-12 h-12 mx-auto rounded-full bg-amber-500/10 flex items-center justify-center text-amber-600">
               <AlertCircle className="w-6 h-6" />
             </div>
@@ -471,7 +497,7 @@ export const BookingStep3Page: React.FC = () => {
               fullWidth
               autoFocus
               onClick={() => navigate('/booking/langkah-2')}
-              className="min-h-[44px] font-bold"
+              className="min-h-[48px] font-bold shadow-sm"
             >
               Pilih Jam Lain
             </Button>

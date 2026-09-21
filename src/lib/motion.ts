@@ -23,8 +23,61 @@ const isTestEnv =
     window.location.search.includes('disable_anim=true'));
 
 export const IOS_DURATION = isTestEnv ? 0.05 : 0.32;
-export const IOS_MODAL_DURATION = isTestEnv ? 0.05 : 0.36;
+export const IOS_MODAL_DURATION = isTestEnv ? 0.05 : 0.38;
 export const IOS_STAGGER_EACH = isTestEnv ? 0.005 : 0.04;
+
+/**
+ * Animate entrance of bottom sheet modal using GSAP
+ */
+export function animateBottomSheetEntrance(
+  sheetEl: HTMLElement | null,
+  backdropEl?: HTMLElement | null,
+  onComplete?: () => void
+) {
+  if (!sheetEl) return;
+  const duration = IOS_MODAL_DURATION;
+  const ease = IOS_MODAL_EASE;
+
+  const tl = gsap.timeline({ onComplete });
+  if (backdropEl) {
+    tl.fromTo(
+      backdropEl,
+      { opacity: 0 },
+      { opacity: 1, duration: duration * 0.75, ease: 'power2.out' },
+      0
+    );
+  }
+  tl.fromTo(
+    sheetEl,
+    { yPercent: 100 },
+    { yPercent: 0, duration, ease, clearProps: 'transform' },
+    0
+  );
+  return tl;
+}
+
+/**
+ * Animate exit of bottom sheet modal using GSAP
+ */
+export function animateBottomSheetExit(
+  sheetEl: HTMLElement | null,
+  backdropEl?: HTMLElement | null,
+  onComplete?: () => void
+) {
+  if (!sheetEl) {
+    onComplete?.();
+    return;
+  }
+  const duration = IOS_DURATION;
+  const ease = 'power2.in';
+
+  const tl = gsap.timeline({ onComplete });
+  if (backdropEl) {
+    tl.to(backdropEl, { opacity: 0, duration: duration * 0.8 }, 0);
+  }
+  tl.to(sheetEl, { yPercent: 100, duration, ease }, 0);
+  return tl;
+}
 
 /**
  * Route hierarchy levels for detecting forward vs backward navigation

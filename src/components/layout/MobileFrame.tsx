@@ -40,17 +40,26 @@ export const MobileFrame: React.FC<MobileFrameProps> = ({
 
   useGSAP(
     () => {
+      // Scroll to top on page transition for clean mobile experience
+      if (typeof window !== 'undefined') {
+        window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+      }
+
       const direction = getTransitionDirection(location.pathname);
 
       if (direction === 'none') {
         return;
       }
 
+      if (mainRef.current) {
+        gsap.killTweensOf(mainRef.current);
+      }
+
       if (direction === 'modal') {
         // Modal sheet presentation: smooth slide-up from bottom
         gsap.fromTo(
           mainRef.current,
-          { y: 32, opacity: 0 },
+          { y: 36, opacity: 0 },
           {
             y: 0,
             opacity: 1,
@@ -63,7 +72,7 @@ export const MobileFrame: React.FC<MobileFrameProps> = ({
         // iOS forward push transition: slide in from right with subtle fade
         gsap.fromTo(
           mainRef.current,
-          { x: 20, opacity: 0 },
+          { x: 24, opacity: 0 },
           {
             x: 0,
             opacity: 1,
@@ -76,7 +85,7 @@ export const MobileFrame: React.FC<MobileFrameProps> = ({
         // iOS backward pop transition: slide in from left with subtle fade
         gsap.fromTo(
           mainRef.current,
-          { x: -20, opacity: 0 },
+          { x: -24, opacity: 0 },
           {
             x: 0,
             opacity: 1,
@@ -90,6 +99,7 @@ export const MobileFrame: React.FC<MobileFrameProps> = ({
       // Staggered entrance for key content cards
       const staggerItems = mainRef.current?.querySelectorAll('.ios-stagger');
       if (staggerItems && staggerItems.length > 0) {
+        gsap.killTweensOf(staggerItems);
         gsap.fromTo(
           staggerItems,
           { y: 12, opacity: 0 },
@@ -116,7 +126,7 @@ export const MobileFrame: React.FC<MobileFrameProps> = ({
         ref={frameRef}
         data-testid="mobile-frame"
         className={cn(
-          'w-full min-h-[100dvh] h-[100dvh] sm:h-auto sm:min-h-[852px] sm:max-w-[420px] bg-surface flex flex-col relative overflow-hidden sm:rounded-[44px] sm:shadow-2xl sm:border sm:border-border-hairline',
+          'w-full min-h-screen sm:min-h-[852px] sm:max-w-[420px] bg-canvas flex flex-col relative sm:rounded-[44px] sm:shadow-2xl sm:border sm:border-border-hairline sm:overflow-hidden',
           className
         )}
       >
@@ -130,11 +140,11 @@ export const MobileFrame: React.FC<MobileFrameProps> = ({
           />
         )}
 
-        {/* Scrollable Main Content */}
+        {/* Main Content */}
         <main
           ref={mainRef}
           className={cn(
-            'flex-1 w-full overflow-y-auto overflow-x-hidden no-scrollbar scroll-touch relative flex flex-col',
+            'flex-1 w-full relative flex flex-col',
             contentClassName
           )}
         >

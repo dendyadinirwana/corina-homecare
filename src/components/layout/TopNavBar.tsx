@@ -29,7 +29,7 @@ export const TopNavBar: React.FC<TopNavBarProps> = ({
     <nav
       data-testid="top-nav-bar"
       className={cn(
-        'w-full pt-[env(safe-area-inset-top,0px)] select-none bg-surface/90 backdrop-blur-md border-b border-border-subtle/50 shrink-0 z-20',
+        'w-full pt-[env(safe-area-inset-top,0px)] select-none bg-surface/90 backdrop-blur-md border-b border-border-subtle/50 shrink-0 z-20 sticky top-0',
         className
       )}
     >

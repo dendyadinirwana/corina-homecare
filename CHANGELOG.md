@@ -5,6 +5,25 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.0] - 2026-09-21
+
+### Added
+- **GSAP Animated Bottom Sheet**: Rebuilt the slot collision dialog (`BookingStep3Page.tsx`) into an authentic mobile bottom sheet featuring a tactile drag-indicator pill, smooth slide-up entrance (`yPercent: 100 -> 0`), and blurred backdrop overlay.
+- **GSAP Motion Helpers**: Added `animateBottomSheetEntrance` and `animateBottomSheetExit` utility helpers in `src/lib/motion.ts`.
+- **Android System Chrome Integration**: Added `<meta name="theme-color" content="#FFFFFF" />` and `<meta name="apple-mobile-web-app-status-bar-style" content="default" />` in `index.html`.
+
+### Changed
+- **Mobile Container Architecture**:
+  - Replaced rigid `h-[100dvh]` inner container scroll trapping with native document/window scroll on mobile browsers.
+  - Enabled Android Chrome URL bar and toolbar auto-collapse on scroll.
+  - Fixed sticky navigation headers (`TopNavBar`) and sticky bottom CTAs with safe area inset preservation.
+  - Automatic `window.scrollTo(0, 0)` reset on inter-route navigation for consistent mobile screen positioning.
+- **Visual Contrast & Hierarchy**:
+  - Grouped page background set to `#F2F2F7` (Apple iOS grouped canvas / light clinical grey).
+  - Cards updated to crisp `#FFFFFF` with hairline borders (`#E5E7EB`) and subtle shadow, providing sharp visual separation in bright mobile environments.
+
+---
+
 ## [1.1.0] - 2026-09-21
 
 ### Added
