@@ -85,7 +85,7 @@ test.describe('Task 4: Layar 1 (Beranda & Bio-Link Hub)', () => {
 
     // Footnote
     const footnote = page.getByTestId('domisili-footnote');
-    await expect.soft(footnote).toContainText('Domisili & Wilayah Kunjungan: Tangerang Selatan & Sekitarnya');
+    await expect.soft(footnote).toContainText('Domisili Kunjungan: Tangerang Selatan & Sekitarnya');
 
     // Button Pesan in Card 1
     const orderButton = page.getByTestId('btn-pesan-kunjungan');

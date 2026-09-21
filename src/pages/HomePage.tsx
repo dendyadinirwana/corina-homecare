@@ -257,7 +257,7 @@ export const HomePage: React.FC = () => {
         className="mt-6 px-4 flex items-center justify-center gap-1.5 text-center text-xs text-ink-muted"
       >
         <MapPin className="w-3.5 h-3.5 text-ink-muted shrink-0" />
-        <span>Domisili & Wilayah Kunjungan: Tangerang Selatan & Sekitarnya</span>
+        <span>Domisili Kunjungan: Tangerang Selatan & Sekitarnya</span>
       </div>
     </MobileFrame>
   );
