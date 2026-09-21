@@ -15,7 +15,7 @@
 
 ## 📱 Live Demo & Overview
 
-- **Production URL**: [Deployed on Vercel](#-deployment)
+- **Production URL**: [https://corina-homecare.vercel.app](https://corina-homecare.vercel.app)
 - **Target Experience**: Mobile-first touch interface (seamless 100vw on mobile devices, centered 393px–420px framed preview on desktop viewports).
 
 This application was engineered specifically for independent homecare doctors and their patients. When medical needs arise at home, patients and family members need instant reassurance, rapid booking, precise address/GPS geolocation pinning, and direct clinical communication without cognitive friction or generic marketing fluff.
