@@ -3,7 +3,7 @@
 > **Production-grade, mobile-first web application for independent doctor homecare services.**  
 > Crafted with Apple iOS Human Interface Guidelines (HIG) aesthetics, tactile micro-interactions (`transitions-dev`), Leaflet GPS map integration, Cloudflare D1 slot collision guard, and zero-AI-slop design discipline.
 
-[![Version](https://img.shields.io/badge/version-1.1.0-brightgreen.svg)](https://github.com/dendyadinirwana/corina-homecare/releases)
+[![Version](https://img.shields.io/badge/version-1.3.0-brightgreen.svg)](https://github.com/dendyadinirwana/corina-homecare/releases)
 [![React](https://img.shields.io/badge/React-18.3.1-blue.svg)](https://react.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.7.3-3178C6.svg)](https://www.typescriptlang.org/)
 [![Vite](https://img.shields.io/badge/Vite-6.1.0-646CFF.svg)](https://vitejs.dev/)
@@ -15,7 +15,8 @@
 
 ## 📱 Live Demo & Overview
 
-- **Production URL**: [https://corina-homecare.vercel.app](https://corina-homecare.vercel.app)
+- **Custom Domain**: [https://corinawulandari.my.id](https://corinawulandari.my.id)
+- **Cloudflare Pages**: [https://corina-homecare.pages.dev](https://corina-homecare.pages.dev)
 - **Target Experience**: Mobile-first touch interface (seamless 100vw on mobile devices, centered 393px–420px framed preview on desktop viewports).
 
 This application was engineered specifically for independent homecare doctors and their patients. When medical needs arise at home, patients and family members need instant reassurance, rapid booking, precise address/GPS geolocation pinning, and direct clinical communication without cognitive friction or generic marketing fluff.
@@ -103,7 +104,7 @@ Detailed design tokens, typography scales, elevation models, and component guide
 - **Animations**: CSS `@keyframes`, GSAP / `@gsap/react`, `transitions-dev`
 - **Backend / Edge Functions**: Cloudflare Pages Functions + Cloudflare D1 SQL database
 - **Testing**: Playwright with TypeScript (Page Object Pattern, 128 tests)
-- **Deployment**: Vercel (Frontend SPA) / Cloudflare Pages (Edge API)
+- **Deployment**: Cloudflare Pages (Frontend SPA + Edge D1 API)
 
 ---
 
@@ -115,6 +116,7 @@ Homecare/
 │   └── design.json
 ├── docs/                        # Specifications and design plans
 ├── functions/                   # Cloudflare Pages Functions
+│   ├── [[catchall]].ts          # Full SPA client-side routing fallback
 │   └── api/
 │       └── bookings/
 │           ├── index.ts         # POST /api/bookings (atomic 409 conflict guard)
@@ -126,7 +128,7 @@ Homecare/
 │   ├── api/                     # API client interface
 │   ├── components/
 │   │   ├── booking/             # MiniDoctorCard, etc.
-│   │   ├── layout/              # MobileFrame, TopNavBar
+│   │   ├── layout/              # MobileFrame (Fixed App Shell), TopNavBar
 │   │   ├── map/                 # MapPicker (Leaflet OpenStreetMap)
 │   │   └── ui/                  # Button, Card, IosSwitch, StarRating, Stepper
 │   ├── lib/                     # Motion utilities & cn helper
@@ -148,7 +150,7 @@ Homecare/
 ├── CHANGELOG.md                 # Project version changelog
 ├── package.json
 ├── tailwind.config.js
-├── vercel.json                  # SPA routing configuration for Vercel
+├── wrangler.jsonc               # Cloudflare Pages & D1 database configuration
 └── vite.config.ts
 ```
 
@@ -222,24 +224,23 @@ npx playwright test tests/review-flow.spec.ts
 
 ---
 
-## 🚢 Deployment
+## 🚢 Deployment (Cloudflare Pages & D1 Database)
 
-### Deploy to Vercel
-The project includes a pre-configured `vercel.json` with SPA routing rewrites:
+The application is built for serverless edge deployment on **Cloudflare Pages** with Cloudflare D1 SQL database integration:
 
 ```bash
-# Deploy to preview
-vercel
+# 1. Build application and prepare SPA fallback bundles
+npm run build
 
-# Deploy to production
-vercel --prod
+# 2. Deploy directly to Cloudflare Pages production
+npm run deploy:cloudflare
+
+# Or deploy using Wrangler directly
+npx wrangler pages deploy dist --project-name corina-homecare
 ```
 
-### Deploy to Cloudflare Pages (with D1 Database)
-```bash
-# Deploy via Wrangler
-npx wrangler pages deploy dist
-```
+- **Production Custom Domain**: [https://corinawulandari.my.id](https://corinawulandari.my.id)
+- **Production Pages URL**: [https://corina-homecare.pages.dev](https://corina-homecare.pages.dev)
 
 ---
 
