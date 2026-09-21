@@ -150,3 +150,64 @@ export function downloadIcsFile(booking: ConfirmedBooking): void {
  * Alias for task compatibility
  */
 export const generateIcsFile = downloadIcsFile;
+
+export const INDONESIAN_DAYS_LONG = [
+  'Minggu',
+  'Senin',
+  'Selasa',
+  'Rabu',
+  'Kamis',
+  'Jumat',
+  'Sabtu',
+];
+
+export const INDONESIAN_DAYS_SHORT = [
+  'MIN',
+  'SEN',
+  'SEL',
+  'RAB',
+  'KAM',
+  'JUM',
+  'SAB',
+];
+
+export const INDONESIAN_MONTHS = [
+  'Januari',
+  'Februari',
+  'Maret',
+  'April',
+  'Mei',
+  'Juni',
+  'Juli',
+  'Agustus',
+  'September',
+  'Oktober',
+  'November',
+  'Desember',
+];
+
+export function formatDateToYmd(date: Date): string {
+  const y = date.getFullYear();
+  const m = String(date.getMonth() + 1).padStart(2, '0');
+  const d = String(date.getDate()).padStart(2, '0');
+  return `${y}-${m}-${d}`;
+}
+
+export function parseYmdDate(dateStr: string): Date {
+  const [yearStr, monthStr, dayStr] = (dateStr || '2024-06-25').split('-');
+  const year = parseInt(yearStr, 10) || 2024;
+  const month = parseInt(monthStr, 10) || 6;
+  const day = parseInt(dayStr, 10) || 25;
+  return new Date(year, month - 1, day);
+}
+
+export function formatIndonesianDate(dateStr: string): string {
+  if (!dateStr) return '';
+  const d = parseYmdDate(dateStr);
+  const dayName = INDONESIAN_DAYS_LONG[d.getDay()];
+  const dayNum = d.getDate();
+  const monthName = INDONESIAN_MONTHS[d.getMonth()];
+  const year = d.getFullYear();
+  return `${dayName}, ${dayNum} ${monthName} ${year}`;
+}
+

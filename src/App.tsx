@@ -1,6 +1,8 @@
 import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom';
 import { HomePage } from './pages/HomePage';
 import { ProfilePage } from './pages/ProfilePage';
+import { BookingStep1Page } from './pages/BookingStep1Page';
+import { BookingStep2Page } from './pages/BookingStep2Page';
 import { DemoLayoutPage } from './pages/DemoLayoutPage';
 import { MobileFrame } from './components/layout/MobileFrame';
 import { Button } from './components/ui/Button';
@@ -53,8 +55,8 @@ export default function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/profil" element={<ProfilePage />} />
-        <Route path="/booking/langkah-1" element={<BookingStepPlaceholder step="1" />} />
-        <Route path="/booking/langkah-2" element={<BookingStepPlaceholder step="2" />} />
+        <Route path="/booking/langkah-1" element={<BookingStep1Page />} />
+        <Route path="/booking/langkah-2" element={<BookingStep2Page />} />
         <Route path="/booking/langkah-3" element={<BookingStepPlaceholder step="3" />} />
         <Route path="/ulasan" element={<ReviewPlaceholder title="Daftar Ulasan Pasien" />} />
         <Route path="/ulasan/tulis" element={<ReviewPlaceholder title="Tulis Ulasan Pasien" />} />
