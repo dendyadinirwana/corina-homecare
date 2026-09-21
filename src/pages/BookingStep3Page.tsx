@@ -75,6 +75,18 @@ export const BookingStep3Page: React.FC = () => {
     setDraft({ coordinates: newCoords });
   };
 
+  const handleBack = () => {
+    setDraft({
+      patientName,
+      patientPhone,
+      address,
+      landmark,
+      coordinates,
+      complaint: complaintDetail || complaintCategory,
+    });
+    navigate('/booking/langkah-2');
+  };
+
   const handleConfirm = () => {
     setDraft({
       patientName,
@@ -92,7 +104,7 @@ export const BookingStep3Page: React.FC = () => {
     <MobileFrame
       title="Buat Janji Temu"
       showBack={true}
-      onBack={() => navigate('/booking/langkah-2')}
+      onBack={handleBack}
       contentClassName="p-0 pb-20 flex flex-col justify-between"
     >
       <div className="px-4 pt-3 pb-6 space-y-4">

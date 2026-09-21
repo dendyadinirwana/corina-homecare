@@ -27,6 +27,8 @@ export const MapPicker: React.FC<MapPickerProps> = ({
   const containerRef = useRef<HTMLDivElement>(null);
   const mapInstanceRef = useRef<L.Map | null>(null);
   const markerRef = useRef<L.Marker | null>(null);
+  const resizeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const geoTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const [hasError, setHasError] = useState(false);
   const [isLocating, setIsLocating] = useState(false);
@@ -109,8 +111,10 @@ export const MapPicker: React.FC<MapPickerProps> = ({
       markerRef.current = marker;
 
       // Force resize calculation after mount
-      setTimeout(() => {
-        map.invalidateSize();
+      resizeTimerRef.current = setTimeout(() => {
+        if (mapInstanceRef.current) {
+          mapInstanceRef.current.invalidateSize();
+        }
       }, 100);
     } catch (err) {
       console.warn('Leaflet map initialization error, falling back to graceful UI:', err);
@@ -118,6 +122,14 @@ export const MapPicker: React.FC<MapPickerProps> = ({
     }
 
     return () => {
+      if (resizeTimerRef.current) {
+        clearTimeout(resizeTimerRef.current);
+        resizeTimerRef.current = null;
+      }
+      if (geoTimerRef.current) {
+        clearTimeout(geoTimerRef.current);
+        geoTimerRef.current = null;
+      }
       if (mapInstanceRef.current) {
         mapInstanceRef.current.remove();
         mapInstanceRef.current = null;
@@ -169,7 +181,8 @@ export const MapPicker: React.FC<MapPickerProps> = ({
 
         setGeoStatus('success');
         setGeoMessage('Lokasi berhasil diperbarui!');
-        setTimeout(() => setGeoStatus('idle'), 3500);
+        if (geoTimerRef.current) clearTimeout(geoTimerRef.current);
+        geoTimerRef.current = setTimeout(() => setGeoStatus('idle'), 3500);
       },
       (_error) => {
         setIsLocating(false);
@@ -181,7 +194,8 @@ export const MapPicker: React.FC<MapPickerProps> = ({
           mapInstanceRef.current.setView([DEFAULT_COORDINATES.lat, DEFAULT_COORDINATES.lng], 15);
         }
         setGeoMessage('Izin GPS tidak aktif. Menggunakan titik Tangsel.');
-        setTimeout(() => setGeoStatus('idle'), 4000);
+        if (geoTimerRef.current) clearTimeout(geoTimerRef.current);
+        geoTimerRef.current = setTimeout(() => setGeoStatus('idle'), 4000);
       },
       {
         enableHighAccuracy: true,

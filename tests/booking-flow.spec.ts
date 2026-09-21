@@ -169,12 +169,11 @@ test.describe('Task 6: Layar 6 (Booking Step 4: Konfirmasi Janji Temu & Kalender
     expect.soft(calBox?.height).toBeGreaterThanOrEqual(44);
 
     // Check calendar download event trigger
-    const downloadPromise = page.waitForEvent('download', { timeout: 3000 }).catch(() => null);
+    const downloadPromise = page.waitForEvent('download', { timeout: 5000 });
     await btnCalendar.click();
     const download = await downloadPromise;
-    if (download) {
-      expect.soft(download.suggestedFilename()).toContain('.ics');
-    }
+    expect.soft(download).not.toBeNull();
+    expect.soft(download.suggestedFilename()).toContain('.ics');
 
     // View details button
     const btnDetails = page.getByTestId('btn-view-details');
