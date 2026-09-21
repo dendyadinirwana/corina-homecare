@@ -53,6 +53,14 @@ test.describe('Task 5: Layar 3 (Booking Step 1: Tanggal & Jenis Kunjungan)', () 
     await expect.soft(prevMonthBtn).toBeVisible();
     await expect.soft(nextMonthBtn).toBeVisible();
 
+    const prevBox = await prevMonthBtn.boundingBox();
+    expect.soft(prevBox?.width).toBeGreaterThanOrEqual(44);
+    expect.soft(prevBox?.height).toBeGreaterThanOrEqual(44);
+
+    const nextBox = await nextMonthBtn.boundingBox();
+    expect.soft(nextBox?.width).toBeGreaterThanOrEqual(44);
+    expect.soft(nextBox?.height).toBeGreaterThanOrEqual(44);
+
     // 7 day buttons
     const dayButtons = page.locator('[data-testid^="calendar-day-"]');
     await expect.soft(dayButtons).toHaveCount(7);
@@ -140,6 +148,9 @@ test.describe('Task 5: Layar 4 (Booking Step 2: Jam Kunjungan)', () => {
     const btnUbah = page.getByTestId('btn-ubah-tanggal');
     await expect.soft(btnUbah).toBeVisible();
     await expect.soft(btnUbah).toContainText('Ubah');
+
+    const ubahBox = await btnUbah.boundingBox();
+    expect.soft(ubahBox?.height).toBeGreaterThanOrEqual(44);
 
     await btnUbah.click();
     await expect.soft(page).toHaveURL(/\/booking\/langkah-1/);

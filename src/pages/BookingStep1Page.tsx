@@ -134,18 +134,18 @@ export const BookingStep1Page: React.FC = () => {
                 data-testid="btn-prev-month"
                 onClick={handlePrevWeek}
                 aria-label="Minggu Sebelumnya"
-                className="w-8 h-8 rounded-full flex items-center justify-center text-ink-secondary hover:text-ink-primary hover:bg-card-hover btn-tactile border border-border-hairline"
+                className="w-11 h-11 min-w-[44px] min-h-[44px] rounded-full flex items-center justify-center text-ink-secondary hover:text-ink-primary hover:bg-card-hover btn-tactile border border-border-hairline"
               >
-                <ChevronLeft className="w-4 h-4" />
+                <ChevronLeft className="w-5 h-5" />
               </button>
               <button
                 type="button"
                 data-testid="btn-next-month"
                 onClick={handleNextWeek}
                 aria-label="Minggu Selanjutnya"
-                className="w-8 h-8 rounded-full flex items-center justify-center text-ink-secondary hover:text-ink-primary hover:bg-card-hover btn-tactile border border-border-hairline"
+                className="w-11 h-11 min-w-[44px] min-h-[44px] rounded-full flex items-center justify-center text-ink-secondary hover:text-ink-primary hover:bg-card-hover btn-tactile border border-border-hairline"
               >
-                <ChevronRight className="w-4 h-4" />
+                <ChevronRight className="w-5 h-5" />
               </button>
             </div>
           </div>
