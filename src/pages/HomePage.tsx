@@ -17,17 +17,21 @@ export const HomePage: React.FC = () => {
   const navigate = useNavigate();
 
   return (
-    <MobileFrame hideNav={true} contentClassName="p-0 pb-10">
+    <MobileFrame hideNav={true} contentClassName="p-0 pb-[max(2.5rem,calc(1.5rem+env(safe-area-inset-bottom,0px)))]">
       {/* Doctor Bio Card */}
-      <div className="px-4 pt-6 pb-4 flex flex-col items-center text-center">
-        <div className="relative mb-3">
+      <div className="ios-stagger px-4 pt-[max(1.5rem,calc(env(safe-area-inset-top,0px)+1rem))] pb-4 flex flex-col items-center text-center">
+        <Link
+          to="/profil"
+          aria-label="Lihat profil dr. Corina Wulandari"
+          className="relative mb-3 block group rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest/40 active:scale-95 transition-transform"
+        >
           <img
             src="/doctor-profile.jpg"
             alt="Corina Wulandari"
             data-testid="doctor-avatar"
-            className="w-[92px] h-[92px] rounded-full object-cover border-[3.5px] border-white shadow-md"
+            className="w-[92px] h-[92px] rounded-full object-cover border-[3.5px] border-white shadow-md group-hover:opacity-95 transition-opacity cursor-pointer"
           />
-        </div>
+        </Link>
 
         <h1
           data-testid="doctor-name"
@@ -77,7 +81,7 @@ export const HomePage: React.FC = () => {
       </div>
 
       {/* Emergency WhatsApp Card */}
-      <div className="px-4 mb-4">
+      <div className="ios-stagger px-4 mb-4">
         <a
           href="https://wa.me/6287772077213?text=Halo%20Dokter%20Corina,%20saya%20memerlukan%20tindakan%20homecare"
           target="_blank"
@@ -117,7 +121,7 @@ export const HomePage: React.FC = () => {
       </div>
 
       {/* 4 Service Action Cards */}
-      <div className="px-4 space-y-2.5">
+      <div className="ios-stagger px-4 space-y-2.5">
         <h2 className="text-xs font-semibold uppercase tracking-wider text-ink-muted px-1">
           Layanan Praktik Medis Mandiri
         </h2>

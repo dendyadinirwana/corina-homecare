@@ -49,6 +49,12 @@ test.describe('Task 4: Layar 1 (Beranda & Bio-Link Hub)', () => {
     await expect.soft(page).toHaveURL(/\/profil/);
   });
 
+  test('clicking doctor avatar navigates to /profil', async ({ page }) => {
+    const avatar = page.getByTestId('doctor-avatar');
+    await avatar.click();
+    await expect.soft(page).toHaveURL(/\/profil/);
+  });
+
   test('renders emergency WhatsApp card with active status and correct link', async ({ page }) => {
     const waCard = page.getByTestId('whatsapp-emergency-card');
     await expect.soft(waCard).toBeVisible();

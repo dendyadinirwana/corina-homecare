@@ -171,14 +171,18 @@ export const BookingStep3Page: React.FC = () => {
       title="Buat Janji Temu"
       showBack={true}
       onBack={handleBack}
-      contentClassName="p-0 pb-20 flex flex-col justify-between"
+      contentClassName="p-0 flex flex-col justify-between"
     >
-      <div className="px-4 pt-3 pb-6 space-y-4">
+      <div className="px-4 pt-3 pb-28 space-y-4">
         {/* Stepper Wizard (Step 3 active, Steps 1 & 2 completed) */}
-        <Stepper currentStep={3} />
+        <div className="ios-stagger">
+          <Stepper currentStep={3} />
+        </div>
 
         {/* Mini Doctor Card */}
-        <MiniDoctorCard />
+        <div className="ios-stagger">
+          <MiniDoctorCard />
+        </div>
 
         {/* Section 1: Data Pasien & Kontak */}
         <Card variant="surface" padding="md" className="space-y-3.5">
@@ -423,7 +427,7 @@ export const BookingStep3Page: React.FC = () => {
       </div>
 
       {/* Sticky Bottom CTA */}
-      <div className="sticky bottom-0 w-full bg-surface/90 backdrop-blur-md border-t border-border-subtle p-4 z-10">
+      <div className="sticky bottom-0 w-full bg-surface/90 backdrop-blur-md border-t border-border-subtle p-4 pb-[max(1rem,calc(0.75rem+env(safe-area-inset-bottom,0px)))] z-10">
         <Button
           data-testid="btn-confirm-booking"
           variant="lime"

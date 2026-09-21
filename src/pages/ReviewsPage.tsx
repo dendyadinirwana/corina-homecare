@@ -344,7 +344,7 @@ export const ReviewsPage: React.FC = () => {
       {/* 6. Sticky Bottom Action Bar */}
       <div
         data-testid="sticky-reviews-footer"
-        className="sticky bottom-0 inset-x-0 bg-surface/95 backdrop-blur-md border-t border-border-hairline p-4 z-20 flex items-center justify-center mt-auto shadow-sm -mx-4 -mb-4"
+        className="sticky bottom-0 inset-x-0 bg-surface/95 backdrop-blur-md border-t border-border-hairline p-4 pb-[max(1rem,calc(0.75rem+env(safe-area-inset-bottom,0px)))] z-20 flex items-center justify-center mt-auto shadow-sm -mx-4 -mb-4"
       >
         <Button
           variant="lime"

@@ -1,0 +1,233 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-09-21T19:10:00Z",
+  "title": "Design System: Corina Wulandari - Personal Health & Homecare",
+  "extensions": {
+    "colorMeta": {
+      "primary": {
+        "role": "primary",
+        "displayName": "Signature Lime",
+        "canonical": "oklch(91.8% 0.185 119.4)",
+        "tonalRamp": [
+          "#344100",
+          "#526700",
+          "#739000",
+          "#96BB00",
+          "#B5DE08",
+          "#D4F636",
+          "#E2FA6E",
+          "#F1FDB0"
+        ]
+      },
+      "secondary": {
+        "role": "secondary",
+        "displayName": "Deep Clinical Forest Green",
+        "canonical": "oklch(26.2% 0.045 142.6)",
+        "tonalRamp": [
+          "#0D170F",
+          "#162519",
+          "#1E3322",
+          "#2C4A32",
+          "#3E6746",
+          "#5B9266",
+          "#8EBA97",
+          "#E8F8EE"
+        ]
+      },
+      "canvas": {
+        "role": "neutral",
+        "displayName": "iOS Canvas Background",
+        "canonical": "oklch(95.6% 0.004 264.5)",
+        "tonalRamp": [
+          "#1C1C1E",
+          "#2C2C2E",
+          "#48484A",
+          "#8E8E93",
+          "#AEAEB2",
+          "#D1D1D6",
+          "#E5E5EA",
+          "#F2F2F7"
+        ]
+      },
+      "surface": {
+        "role": "neutral",
+        "displayName": "Surface Pure White",
+        "canonical": "oklch(100% 0 0)",
+        "tonalRamp": [
+          "#111111",
+          "#333333",
+          "#666666",
+          "#999999",
+          "#CCCCCC",
+          "#E5E5E5",
+          "#F8F8FA",
+          "#FFFFFF"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display Hero",
+        "purpose": "Doctor profile names and major confirmation titles."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Section titles and card headlines."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Service card titles and modal sheet headers."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Clinical descriptions, instructions, and review text."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Form field titles, badges, and status pills."
+      }
+    },
+    "shadows": [
+      {
+        "name": "ios-card",
+        "value": "0 2px 8px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02)",
+        "purpose": "Tonal elevation for interactive service cards and clinical profile cards."
+      },
+      {
+        "name": "ios-float",
+        "value": "0 8px 24px rgba(0, 0, 0, 0.08), 0 2px 6px rgba(0, 0, 0, 0.04)",
+        "purpose": "Sticky bottom action bars, floating GPS badges, and sheet modals."
+      }
+    ],
+    "motion": [
+      {
+        "name": "duration-quick",
+        "value": "150ms",
+        "purpose": "Default duration for tactile button presses."
+      },
+      {
+        "name": "ease-smooth-out",
+        "value": "cubic-bezier(0.22, 1, 0.36, 1)",
+        "purpose": "Natural decelerating curve for iOS-like physics."
+      },
+      {
+        "name": "scale-press",
+        "value": "0.96",
+        "purpose": "Scale compression on active button tap."
+      }
+    ],
+    "breakpoints": [
+      { "name": "mobile", "value": "393px" },
+      { "name": "mobile-max", "value": "420px" },
+      { "name": "sm", "value": "640px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Lime Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "High-visibility conversion button for booking reservations and confirming appointments.",
+      "html": "<button class=\"ds-btn-lime\">Jadwalkan Kunjungan</button>",
+      "css": ".ds-btn-lime { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 10px 24px; border-radius: 9999px; background: #D4F636; color: #000000; font-family: -apple-system, BlinkMacSystemFont, sans-serif; font-size: 14px; font-weight: 600; border: none; cursor: pointer; transition: transform 150ms cubic-bezier(0.22, 1, 0.36, 1), background-color 150ms; user-select: none; } .ds-btn-lime:hover { background: #C2E22E; } .ds-btn-lime:active { transform: scale(0.96); background: #B8D829; }"
+    },
+    {
+      "name": "Clinical Forest Button",
+      "kind": "button",
+      "refersTo": "button-forest",
+      "description": "Authoritative secondary button for clinical actions and direct doctor channels.",
+      "html": "<button class=\"ds-btn-forest\">Hubungi via WhatsApp</button>",
+      "css": ".ds-btn-forest { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 10px 24px; border-radius: 9999px; background: #1E3322; color: #FFFFFF; font-family: -apple-system, BlinkMacSystemFont, sans-serif; font-size: 14px; font-weight: 500; border: none; cursor: pointer; transition: transform 150ms cubic-bezier(0.22, 1, 0.36, 1), background-color 150ms; user-select: none; } .ds-btn-forest:hover { background: #16271A; } .ds-btn-forest:active { transform: scale(0.96); }"
+    },
+    {
+      "name": "Surface Card",
+      "kind": "card",
+      "refersTo": "card-surface",
+      "description": "Standard squircle content container with subtle border and ambient card shadow.",
+      "html": "<div class=\"ds-card-surface\"><h4 class=\"ds-card-title\">Kunjungan Rumah</h4><p class=\"ds-card-body\">Pemeriksaan umum dokter langsung di kediaman pasien.</p></div>",
+      "css": ".ds-card-surface { background: #FFFFFF; border: 1px solid #F0F0F2; border-radius: 24px; padding: 16px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02); } .ds-card-title { font-family: -apple-system, BlinkMacSystemFont, sans-serif; font-size: 15px; font-weight: 600; color: #000000; margin: 0 0 4px 0; } .ds-card-body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; font-size: 13px; color: #555555; margin: 0; line-height: 1.4; }"
+    },
+    {
+      "name": "Status Pill",
+      "kind": "chip",
+      "refersTo": "pill-status",
+      "description": "Live doctor availability badge with soft forest green tint.",
+      "html": "<span class=\"ds-pill-status\"><span class=\"ds-dot-live\"></span> Menerima Kunjungan Hari Ini</span>",
+      "css": ".ds-pill-status { display: inline-flex; align-items: center; gap: 6px; min-height: 28px; padding: 4px 12px; border-radius: 9999px; background: #E8F8EE; color: #1E3322; font-family: -apple-system, BlinkMacSystemFont, sans-serif; font-size: 11px; font-weight: 600; } .ds-dot-live { width: 6px; height: 6px; border-radius: 9999px; background: #34C759; }"
+    },
+    {
+      "name": "iOS Preference Switch",
+      "kind": "input",
+      "refersTo": "ios-switch",
+      "description": "Apple HIG compliant 51x31px binary toggle switch.",
+      "html": "<div class=\"ds-switch-container\"><span class=\"ds-switch-thumb\"></span></div>",
+      "css": ".ds-switch-container { width: 51px; height: 31px; border-radius: 9999px; background: #34C759; padding: 2px; box-sizing: border-box; display: inline-flex; align-items: center; justify-content: flex-end; cursor: pointer; transition: background-color 200ms ease; } .ds-switch-thumb { width: 27px; height: 27px; border-radius: 9999px; background: #FFFFFF; box-shadow: 0 3px 8px rgba(0,0,0,0.15); }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Clinical Sanctuary on Wheels",
+    "overview": "Corina Wulandari Personal Health & Homecare is an independent, mobile-first doctor-to-patient service interface engineered for utmost clinical reassurance, speed of access, and authentic tactile craftsmanship. In medical emergencies and home visits, cognitive load is high: patients and their families may be anxious, dealing with acute symptoms, or navigating on small mobile viewports with one hand. The design system therefore eliminates every shred of generic AI aesthetic drift—there are no lavender-blue gradient blobs, no simulated smartphone dynamic islands or fake iOS battery icons drawn on screen, no decorative blueprint grids, no gratuitous glassmorphism, and no endless rows of identical template cards.\n\nInstead, the interface is rooted in authentic Apple iOS Human Interface Guidelines (HIG) with deliberate tactile feedback (transitions-dev). It pairs an authoritative, reassuring Deep Clinical Forest Green (#1E3322) representing professional medical precision, with an electric, high-contrast Signature Lime (#D4F636) reserved strictly for forward-momentum primary actions. Background surfaces use pure iOS grouped canvas tones (#F2F2F7) and clean white squircle surfaces (#FFFFFF) with ultra-fine structural hairlines, ensuring clear separation of information without muddy visual noise.\n\nEvery single interactive element guarantees a minimum touch target of 44×44px with active press scale compression (scale(0.96)) and natural deceleration curves (cubic-bezier(0.22, 1, 0.36, 1)). Real-world context is respected throughout: phone numbers and WhatsApp links trigger genuine telephone and messaging protocols, maps utilize live Leaflet OpenStreetMap coordinates with radar-pulse accuracy beacons, and text labels wrap naturally without abrupt mid-word ellipsis truncation.",
+    "keyCharacteristics": [
+      "Mobile-First Apple HIG Architecture: Centered 393px–420px bounded frame on desktop displays, native 100vw responsive adaptation on handheld devices without artificial browser chrome.",
+      "Committed Two-Tone Clinical Palette: Deep Forest Green (#1E3322) for clinical gravitas + Signature Lime (#D4F636) for primary action conversion, anchored on clean neutral surfaces.",
+      "Micro-Tactile Ergonomics (transitions-dev): Mechanical scale compression on press (active:scale-96), spring checkmark entry (ease-bounce), and 2s infinite radar pulse for geolocation accuracy.",
+      "Zero-AI-Slop Discipline: Strict prohibition against decorative gradients, fake mock status bars, ghost drop shadows, and synthetic marketing buzzwords.",
+      "Universal Accessibility (WCAG 2.1 AA/AAA): Minimum 4.5:1 text contrast on body copy, keyboard navigation focus rings, visible form labels, and robust cross-browser touch target sizing."
+    ],
+    "rules": [
+      {
+        "name": "The Signature Lime Rule",
+        "body": "Signature Lime (#D4F636) is strictly reserved for the single highest-priority conversion element on screen (primary CTA, active navigation action). It must never be applied to body text, large background panels, or decorative borders.",
+        "section": "colors"
+      },
+      {
+        "name": "The Clinical Authority Rule",
+        "body": "Deep Forest Green (#1E3322) carries the gravitas of medical professionalism. Headers, trust badges, and medical credentials must anchor in Forest Green or Ink Primary—never playful pastel shades or neon hues.",
+        "section": "colors"
+      },
+      {
+        "name": "The Contrast Floor Rule",
+        "body": "Body text must never drop below 4.5:1 contrast against its immediate background. Muted gray text (#8E8E93) is permitted only on non-essential supporting metadata at sizes 12px or above; all essential instructions and labels must use #000000 or #555555.",
+        "section": "colors"
+      },
+      {
+        "name": "The Roman Purity Rule",
+        "body": "Headings and display titles are strictly Roman (font-style: normal). Italic styling in headings is explicitly banned. Emphasis in headers is conveyed solely via font-weight (700 bold) or color.",
+        "section": "typography"
+      },
+      {
+        "name": "The No-Ellipsis-on-Addresses Rule",
+        "body": "User addresses and location descriptions must never be truncated with CSS truncate or text-overflow: ellipsis. In homecare logistics, cutting off a house number or street block can cause delayed medical arrival. Addresses must wrap completely using natural text wrap.",
+        "section": "typography"
+      },
+      {
+        "name": "The No-Ghost-Card Rule",
+        "body": "A component must never combine a dark 1px border with a soft, wide drop shadow (≥16px blur). Surfaces must either be defined by a crisp hairline border or an ambient light shadow, never heavy decorative blur layering.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Concurrency Radius Rule",
+        "body": "Border radius follows a strict nested geometry: outer mobile frame = rounded-[44px], primary surface cards = rounded-2xl (24px), inputs and inner tiles = rounded-xl (12px), buttons and badge pills = rounded-full (9999px).",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do maintain a minimum 44×44px touch target on all clickable buttons, inputs, pills, and navigation icons.",
+      "Do reserve Signature Lime (#D4F636) strictly for primary action CTA buttons to preserve its visual hierarchy.",
+      "Do display full, un-truncated patient addresses (text-right break-words) in confirmation and summary cards so delivery details are never obscured.",
+      "Do use authentic .btn-tactile press feedback with scale(0.96) compression and 150ms spring timing on all interactive cards and buttons.",
+      "Do keep headings strictly Roman (font-style: normal), utilizing font weight (700) and color contrast for visual hierarchy.",
+      "Do respect the user's ambient device environment; let the browser and operating system provide genuine status bars and chrome.",
+      "Do provide clear loading states (isLoading, animated spin icons) and disable buttons during asynchronous network or geolocation operations."
+    ],
+    "donts": [
+      "Don't use generic blue-to-purple or purple-to-pink gradient fills; keep surfaces solid, clean, and clinical.",
+      "Don't draw simulated operating system decorations (no fake battery indicators, no fake Wi-Fi icons, no fake Dynamic Island, and no fake iOS home indicator bars).",
+      "Don't use decorative background grids, graph-paper lines, or hand-drawn sketch doodles on clinical medical screens.",
+      "Don't apply uniform pill shapes to everything; reserve rounded-full for buttons, badges, and avatars, using rounded-2xl (24px) for cards and rounded-xl (12px) for inputs.",
+      "Don't combine a 1px solid border with a soft drop shadow (≥16px blur) on the same card ('ghost card' anti-pattern).",
+      "Don't allow body text contrast to fall below 4.5:1 against its background. Never use light gray text on off-white cards.",
+      "Don't invent fake marketing metrics, fabricated customer counter numbers, or artificial urgency countdowns."
+    ]
+  }
+}

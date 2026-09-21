@@ -73,37 +73,40 @@ export const WriteReviewPage: React.FC = () => {
   return (
     <MobileFrame hideNav={true} contentClassName="p-0 flex flex-col">
       {/* 1. Modal Sheet Header */}
-      <div className="w-full h-[56px] px-4 flex items-center justify-between border-b border-border-hairline bg-surface sticky top-0 z-20 shrink-0">
-        <button
-          type="button"
-          aria-label="Tutup"
-          data-testid="btn-close-modal"
-          onClick={() => navigate('/ulasan')}
-          className="w-11 h-11 min-w-[44px] min-h-[44px] -ml-2 rounded-full inline-flex items-center justify-center text-ink-primary hover:bg-black/5 active:scale-95 btn-tactile transition-colors cursor-pointer"
-        >
-          <X className="w-6 h-6 stroke-[2.2]" />
-        </button>
+      <div className="w-full pt-[env(safe-area-inset-top,0px)] px-4 border-b border-border-hairline bg-surface sticky top-0 z-20 shrink-0">
+        <div className="w-full h-[56px] flex items-center justify-between">
+          <button
+            type="button"
+            aria-label="Tutup"
+            data-testid="btn-close-modal"
+            onClick={() => navigate('/ulasan')}
+            className="w-11 h-11 min-w-[45px] min-h-[45px] -ml-2 rounded-full inline-flex items-center justify-center text-ink-primary hover:bg-black/5 active:scale-95 btn-tactile transition-colors cursor-pointer"
+          >
+            <X className="w-6 h-6 stroke-[2.2]" />
+          </button>
 
-        <h1
-          data-testid="modal-title"
-          className="text-[16px] font-bold text-ink-primary tracking-tight text-center"
-        >
-          Tulis Ulasan Layanan
-        </h1>
+          <h1
+            data-testid="modal-title"
+            className="text-[16px] font-bold text-ink-primary tracking-tight text-center"
+          >
+            Tulis Ulasan Layanan
+          </h1>
 
-        <button
-          type="button"
-          data-testid="link-bantuan"
-          onClick={() => alert('Pusat Bantuan Ulasan: Tim kami siap memverifikasi ulasan Anda.')}
-          className="min-h-[44px] px-2 -mr-2 inline-flex items-center gap-1 text-xs font-semibold text-forest hover:underline btn-tactile cursor-pointer"
-        >
-          <HelpCircle className="w-4 h-4" />
-          <span>Bantuan</span>
-        </button>
+          <button
+            type="button"
+            data-testid="link-bantuan"
+            onClick={() => alert('Pusat Bantuan Ulasan: Tim kami siap memverifikasi ulasan Anda.')}
+            className="min-h-[44px] px-2 -mr-2 inline-flex items-center gap-1 text-xs font-semibold text-forest hover:underline btn-tactile cursor-pointer"
+          >
+            <HelpCircle className="w-4 h-4" />
+            <span>Bantuan</span>
+          </button>
+        </div>
       </div>
 
+      {/* Main Form Content */}
       <form onSubmit={handleSubmit} className="flex-1 flex flex-col justify-between">
-        <div className="p-4 space-y-4">
+        <div className="p-4 pb-20 space-y-4">
           {/* 2. Completed Visit Summary Card */}
           <Card
             data-testid="visit-summary-card"
@@ -295,7 +298,7 @@ export const WriteReviewPage: React.FC = () => {
         {/* 7. Sticky Bottom CTA Button */}
         <div
           data-testid="sticky-submit-footer"
-          className="sticky bottom-0 inset-x-0 z-20 mt-auto bg-surface/95 backdrop-blur-md border-t border-border-hairline p-4 px-5 shadow-sm flex items-center justify-center"
+          className="sticky bottom-0 inset-x-0 z-20 mt-auto bg-surface/95 backdrop-blur-md border-t border-border-hairline p-4 px-5 pb-[max(1rem,calc(0.75rem+env(safe-area-inset-bottom,0px)))] shadow-sm flex items-center justify-center"
         >
           <Button
             type="submit"

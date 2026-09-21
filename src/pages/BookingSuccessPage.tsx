@@ -62,38 +62,40 @@ export const BookingSuccessPage: React.FC = () => {
   return (
     <MobileFrame
       hideNav={true}
-      contentClassName="p-0 pb-16 flex flex-col justify-between"
+      contentClassName="p-0 pb-[max(2.5rem,calc(1.5rem+env(safe-area-inset-bottom,0px)))] flex flex-col justify-between"
     >
       {/* Modal Navigation Header */}
-      <div className="w-full h-[48px] px-4 flex items-center justify-between border-b border-border-subtle bg-surface sticky top-0 z-20">
-        <button
-          type="button"
-          data-testid="btn-close-modal"
-          onClick={() => navigate('/')}
-          aria-label="Tutup"
-          className="w-[44px] h-[44px] -ml-2 rounded-full inline-flex items-center justify-center text-ink-primary hover:bg-[#F2F2F7] active:scale-95 btn-tactile transition-colors"
-        >
-          <X className="w-5 h-5 text-ink-primary" />
-        </button>
+      <div className="w-full pt-[env(safe-area-inset-top,0px)] px-4 border-b border-border-subtle bg-surface sticky top-0 z-20 shrink-0">
+        <div className="w-full h-[48px] flex items-center justify-between">
+          <button
+            type="button"
+            data-testid="btn-close-modal"
+            onClick={() => navigate('/')}
+            aria-label="Tutup"
+            className="w-11 h-11 min-w-[44px] min-h-[44px] -ml-2 rounded-full inline-flex items-center justify-center text-ink-primary hover:bg-[#F2F2F7] active:scale-95 btn-tactile transition-colors"
+          >
+            <X className="w-5 h-5 text-ink-primary" />
+          </button>
 
-        <span className="text-xs font-semibold text-ink-secondary">
-          Konfirmasi Reservasi
-        </span>
+          <span className="text-xs font-semibold text-ink-secondary">
+            Konfirmasi Reservasi
+          </span>
 
-        <button
-          type="button"
-          data-testid="btn-finish-modal"
-          onClick={() => navigate('/')}
-          className="min-h-[44px] px-3 -mr-2 rounded-full inline-flex items-center justify-center text-sm font-bold text-forest hover:bg-[#E8F8EE] active:scale-95 btn-tactile transition-colors"
-        >
-          Selesai
-        </button>
+          <button
+            type="button"
+            data-testid="btn-finish-modal"
+            onClick={() => navigate('/')}
+            className="min-h-[44px] px-3 -mr-2 rounded-full inline-flex items-center justify-center text-sm font-bold text-forest hover:bg-[#E8F8EE] active:scale-95 btn-tactile transition-colors"
+          >
+            Selesai
+          </button>
+        </div>
       </div>
 
       {/* Main Content Area */}
       <div className="px-4 pt-5 pb-6 space-y-4">
         {/* Animated Pop-in Checkmark Badge & Hero Title */}
-        <div className="flex flex-col items-center text-center pt-2 pb-2">
+        <div className="ios-stagger flex flex-col items-center text-center pt-2 pb-2">
           <div
             data-testid="badge-success-check"
             className="w-16 h-16 rounded-full bg-lime text-black flex items-center justify-center shadow-md animate-pop-in mb-3 border-4 border-white"

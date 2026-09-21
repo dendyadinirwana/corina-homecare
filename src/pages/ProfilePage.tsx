@@ -25,7 +25,7 @@ export const ProfilePage: React.FC = () => {
   return (
     <MobileFrame hideNav={true} contentClassName="p-0">
       {/* Hero Photo Section */}
-      <div className="relative w-full h-[320px] bg-forest/10 overflow-hidden">
+      <div className="relative w-full h-[320px] min-h-[320px] shrink-0 bg-forest/10 overflow-hidden">
         <img
           src="/doctor-profile.jpg"
           alt="Dr. Corina Wulandari"
@@ -34,7 +34,7 @@ export const ProfilePage: React.FC = () => {
         />
 
         {/* Top Floating Control Bar */}
-        <div className="absolute top-3 left-0 right-0 px-4 flex items-center justify-between z-10">
+        <div className="absolute top-[max(0.75rem,calc(env(safe-area-inset-top,0px)+0.75rem))] left-0 right-0 px-4 flex items-center justify-between z-20 pointer-events-auto">
           <button
             type="button"
             aria-label="Kembali"
@@ -75,9 +75,9 @@ export const ProfilePage: React.FC = () => {
       </div>
 
       {/* Main Profile Info Container */}
-      <div className="relative -mt-6 bg-surface rounded-t-[28px] px-5 pt-4 space-y-4">
+      <div className="relative -mt-6 bg-surface rounded-t-[28px] px-5 pt-4 pb-12 space-y-4">
         {/* Contact Pills Row */}
-        <div className="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1">
+        <div className="flex items-center gap-2 overflow-x-auto no-scrollbar touch-pan-x -mx-5 px-5 pb-1">
           <a
             href="tel:087772077213"
             data-testid="contact-pill-phone"
@@ -392,7 +392,7 @@ export const ProfilePage: React.FC = () => {
       {/* Sticky Booking Footer */}
       <div
         data-testid="sticky-booking-footer"
-        className="sticky bottom-0 inset-x-0 bg-surface/95 backdrop-blur-md border-t border-border-hairline p-4 px-5 z-20 flex items-center justify-between gap-4 mt-auto shadow-sm"
+        className="sticky bottom-0 inset-x-0 bg-surface/95 backdrop-blur-md border-t border-border-hairline p-4 px-5 pb-[max(1rem,calc(0.75rem+env(safe-area-inset-bottom,0px)))] z-20 flex items-center justify-between gap-4 mt-auto shadow-sm"
       >
         <div className="flex flex-col">
           <span className="text-[11px] font-semibold uppercase tracking-wider text-ink-muted">

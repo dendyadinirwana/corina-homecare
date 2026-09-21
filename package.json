@@ -1,7 +1,7 @@
 {
   "name": "corina-homecare",
   "private": true,
-  "version": "1.0.0",
+  "version": "1.1.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -12,7 +12,9 @@
     "dev:pages": "npm run build && wrangler pages dev dist --d1 DB=homecare-db"
   },
   "dependencies": {
+    "@gsap/react": "^2.1.2",
     "clsx": "^2.1.1",
+    "gsap": "^3.15.0",
     "leaflet": "^1.9.4",
     "lucide-react": "^0.475.0",
     "react": "^18.3.1",

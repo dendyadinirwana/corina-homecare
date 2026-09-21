@@ -103,17 +103,21 @@ export const BookingStep1Page: React.FC = () => {
       title="Pilih Tanggal & Kunjungan"
       showBack={true}
       onBack={() => navigate('/')}
-      contentClassName="p-0 pb-20 flex flex-col justify-between"
+      contentClassName="p-0 flex flex-col justify-between"
     >
-      <div className="px-4 pt-3 pb-6 space-y-4">
+      <div className="px-4 pt-3 pb-24 space-y-4">
         {/* Stepper Wizard (Step 1 active) */}
-        <Stepper currentStep={1} />
+        <div className="ios-stagger">
+          <Stepper currentStep={1} />
+        </div>
 
         {/* Mini Doctor Card */}
-        <MiniDoctorCard />
+        <div className="ios-stagger">
+          <MiniDoctorCard />
+        </div>
 
         {/* 7-Day Horizontal Calendar Section */}
-        <div data-testid="calendar-picker-section" className="space-y-2.5">
+        <div data-testid="calendar-picker-section" className="ios-stagger space-y-2.5">
           {/* Calendar Header with Navigation */}
           <div className="flex items-center justify-between pt-1">
             <div>
@@ -151,7 +155,7 @@ export const BookingStep1Page: React.FC = () => {
           </div>
 
           {/* 7-Day Horizontal Strip */}
-          <div className="grid grid-cols-7 gap-1.5 pt-1">
+          <div className="grid grid-cols-7 gap-1 xs:gap-1.5 pt-1">
             {weekDays.map((item) => {
               const isSelected = item.dateStr === selectedDate;
               return (
@@ -161,7 +165,7 @@ export const BookingStep1Page: React.FC = () => {
                   data-testid={`calendar-day-${item.dateStr}`}
                   data-active={isSelected ? 'true' : 'false'}
                   onClick={() => setSelectedDate(item.dateStr)}
-                  className={`flex flex-col items-center justify-center py-2 px-1 rounded-2xl h-[58px] transition-all duration-quick btn-tactile ${
+                  className={`min-w-0 flex flex-col items-center justify-center py-2 px-0.5 xs:px-1 rounded-2xl h-[58px] transition-all duration-quick btn-tactile ${
                     isSelected
                       ? 'bg-forest text-white shadow-md ring-2 ring-forest/30 scale-[1.02]'
                       : 'bg-card text-ink-primary border border-border-subtle hover:bg-card-hover'
@@ -216,7 +220,7 @@ export const BookingStep1Page: React.FC = () => {
         </div>
 
         {/* Visit Service Type Radio Selection */}
-        <div className="space-y-2.5 pt-2">
+        <div className="ios-stagger space-y-2.5 pt-2">
           <div className="flex items-center justify-between">
             <h3 className="text-sm font-bold text-ink-primary tracking-tight">
               Pilih Jenis Layanan Kunjungan
@@ -317,7 +321,7 @@ export const BookingStep1Page: React.FC = () => {
       </div>
 
       {/* Sticky Bottom CTA */}
-      <div className="sticky bottom-0 w-full bg-surface/90 backdrop-blur-md border-t border-border-subtle p-4 z-10">
+      <div className="sticky bottom-0 w-full bg-surface/90 backdrop-blur-md border-t border-border-subtle p-4 pb-[max(1rem,calc(0.75rem+env(safe-area-inset-bottom,0px)))] z-10">
         <Button
           data-testid="btn-next-step-1"
           variant="lime"

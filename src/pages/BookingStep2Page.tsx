@@ -78,22 +78,27 @@ export const BookingStep2Page: React.FC = () => {
       title="Buat Janji Temu"
       showBack={true}
       onBack={() => navigate('/booking/langkah-1')}
-      contentClassName="p-0 pb-20 flex flex-col justify-between"
+      contentClassName="p-0 flex flex-col justify-between"
     >
-      <div className="px-4 pt-3 pb-6 space-y-4">
+      <div className="px-4 pt-3 pb-24 space-y-4">
         {/* Stepper Wizard (Step 2 active, Step 1 completed) */}
-        <Stepper currentStep={2} />
+        <div className="ios-stagger">
+          <Stepper currentStep={2} />
+        </div>
 
         {/* Mini Doctor Card */}
-        <MiniDoctorCard />
+        <div className="ios-stagger">
+          <MiniDoctorCard />
+        </div>
 
         {/* Selected Date Banner with Ubah Button */}
-        <Card
-          data-testid="selected-date-banner"
-          variant="surface"
-          padding="sm"
-          className="bg-[#F6FAF7] border border-[#D5EADB] relative overflow-hidden"
-        >
+        <div className="ios-stagger">
+          <Card
+            data-testid="selected-date-banner"
+            variant="surface"
+            padding="sm"
+            className="bg-[#F6FAF7] border border-[#D5EADB] relative overflow-hidden"
+          >
           <div className="flex items-start justify-between gap-3">
             <div className="flex items-start gap-3">
               <div className="w-10 h-10 rounded-xl bg-forest text-white flex items-center justify-center shrink-0 mt-0.5 shadow-sm">
@@ -123,9 +128,10 @@ export const BookingStep2Page: React.FC = () => {
             </button>
           </div>
         </Card>
+        </div>
 
         {/* Time Slots Grid Sections */}
-        <div className="space-y-4 pt-1">
+        <div className="ios-stagger space-y-4 pt-1">
           <div className="flex items-center justify-between">
             <h3 className="text-sm font-bold text-ink-primary tracking-tight">
               Pilih Waktu Kunjungan
@@ -148,7 +154,7 @@ export const BookingStep2Page: React.FC = () => {
                   <span>{group.title}</span>
                 </div>
 
-                <div className="grid grid-cols-4 gap-2">
+                <div className="grid grid-cols-4 gap-1.5 xs:gap-2">
                   {group.slots.map((slot) => {
                     const isBooked = bookedSlots.includes(slot);
                     const isActive = slot === selectedTime;
@@ -161,7 +167,7 @@ export const BookingStep2Page: React.FC = () => {
                         aria-label={`${slot}${isBooked ? ', Terisi' : ''}`}
                         disabled={isBooked}
                         onClick={() => !isBooked && setSelectedTime(slot)}
-                        className={`min-h-[44px] px-2 py-2 rounded-xl text-xs font-semibold transition-all duration-quick btn-tactile flex flex-col items-center justify-center relative ${
+                        className={`min-h-[44px] px-1 xs:px-2 py-2 rounded-xl text-xs font-semibold transition-all duration-quick btn-tactile flex flex-col items-center justify-center relative ${
                           isBooked
                             ? 'opacity-50 cursor-not-allowed bg-card border border-border-hairline text-ink-muted line-through'
                             : isActive
@@ -187,7 +193,7 @@ export const BookingStep2Page: React.FC = () => {
         {/* Medical Equipment Notice Banner */}
         <div
           data-testid="medical-notice-banner"
-          className="p-3.5 rounded-2xl bg-[#F8FAF8] border border-[#E0EBE2] flex items-start gap-3"
+          className="ios-stagger p-3.5 rounded-2xl bg-[#F8FAF8] border border-[#E0EBE2] flex items-start gap-3"
         >
           <div className="w-7 h-7 rounded-lg bg-[#E8F8EE] text-forest flex items-center justify-center shrink-0 mt-0.5">
             <Clock className="w-4 h-4 text-forest" />
@@ -199,7 +205,7 @@ export const BookingStep2Page: React.FC = () => {
       </div>
 
       {/* Sticky Bottom CTA */}
-      <div className="sticky bottom-0 w-full bg-surface/90 backdrop-blur-md border-t border-border-subtle p-4 z-10">
+      <div className="sticky bottom-0 w-full bg-surface/90 backdrop-blur-md border-t border-border-subtle p-4 pb-[max(1rem,calc(0.75rem+env(safe-area-inset-bottom,0px)))] z-10">
         <Button
           data-testid="btn-next-step-2"
           variant="lime"
