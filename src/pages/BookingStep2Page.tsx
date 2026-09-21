@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Calendar, Clock, Sun, Sunset, Moon, Edit2 } from 'lucide-react';
 import { MobileFrame } from '../components/layout/MobileFrame';
@@ -8,6 +8,7 @@ import { Card } from '../components/ui/Card';
 import { MiniDoctorCard } from '../components/booking/MiniDoctorCard';
 import { useBookingStore } from '../store/bookingStore';
 import { formatIndonesianDate } from '../utils/calendar';
+import { fetchSlotAvailability } from '../services/api';
 
 export const BookingStep2Page: React.FC = () => {
   const navigate = useNavigate();
@@ -17,12 +18,26 @@ export const BookingStep2Page: React.FC = () => {
   const [selectedTime, setSelectedTime] = useState<string>(
     draft.time || '11:00'
   );
+  const [bookedSlots, setBookedSlots] = useState<string[]>([]);
 
-  const formattedDate = formatIndonesianDate(draft.date || '2024-06-25');
+  const selectedDate = draft.date || '2024-06-25';
+  const formattedDate = formatIndonesianDate(selectedDate);
   const serviceLabel =
     draft.serviceType === 'teleconsultation'
       ? 'Telekonsultasi Video • Daring'
       : 'Kunjungan Dokter ke Rumah • Tangerang Selatan';
+
+  useEffect(() => {
+    let isMounted = true;
+    fetchSlotAvailability(selectedDate).then((slots) => {
+      if (!isMounted) return;
+      setBookedSlots(slots);
+      setSelectedTime((curr) => (slots.includes(curr) ? '' : curr));
+    });
+    return () => {
+      isMounted = false;
+    };
+  }, [selectedDate]);
 
   const timeGroups = [
     {
@@ -49,6 +64,7 @@ export const BookingStep2Page: React.FC = () => {
   ];
 
   const handleContinue = () => {
+    if (!selectedTime) return;
     setDraft({ time: selectedTime });
     navigate('/booking/langkah-3');
   };
@@ -130,6 +146,7 @@ export const BookingStep2Page: React.FC = () => {
 
                 <div className="grid grid-cols-4 gap-2">
                   {group.slots.map((slot) => {
+                    const isBooked = bookedSlots.includes(slot);
                     const isActive = slot === selectedTime;
                     return (
                       <button
@@ -137,14 +154,22 @@ export const BookingStep2Page: React.FC = () => {
                         type="button"
                         data-testid={`time-slot-${slot}`}
                         data-active={isActive ? 'true' : 'false'}
-                        onClick={() => setSelectedTime(slot)}
-                        className={`min-h-[44px] px-2 py-2.5 rounded-xl text-xs font-semibold transition-all duration-quick btn-tactile flex items-center justify-center ${
-                          isActive
+                        disabled={isBooked}
+                        onClick={() => !isBooked && setSelectedTime(slot)}
+                        className={`min-h-[44px] px-2 py-2 rounded-xl text-xs font-semibold transition-all duration-quick btn-tactile flex flex-col items-center justify-center relative ${
+                          isBooked
+                            ? 'opacity-50 cursor-not-allowed bg-card border border-border-hairline text-ink-muted line-through'
+                            : isActive
                             ? 'bg-forest text-white border-2 border-forest shadow-sm ring-2 ring-forest/20'
                             : 'bg-card text-ink-primary border border-border-hairline hover:bg-card-hover hover:border-ink-muted/30'
                         }`}
                       >
-                        {slot}
+                        <span>{slot}</span>
+                        {isBooked && (
+                          <span className="text-[10px] font-medium no-underline tracking-normal text-ink-muted mt-0.5">
+                            Terisi
+                          </span>
+                        )}
                       </button>
                     );
                   })}
@@ -175,6 +200,7 @@ export const BookingStep2Page: React.FC = () => {
           variant="lime"
           size="lg"
           fullWidth
+          disabled={!selectedTime}
           onClick={handleContinue}
           className="shadow-sm"
         >
