@@ -1,0 +1,13 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "corina-homecare",
+  "pages_build_output_dir": "./dist",
+  "compatibility_date": "2024-09-21",
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "homecare-db",
+      "database_id": "homecare-db-local"
+    }
+  ]
+}
