@@ -1,118 +1,65 @@
-import { useState } from 'react';
-import { Bell } from 'lucide-react';
+import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom';
+import { HomePage } from './pages/HomePage';
+import { ProfilePage } from './pages/ProfilePage';
+import { DemoLayoutPage } from './pages/DemoLayoutPage';
 import { MobileFrame } from './components/layout/MobileFrame';
 import { Button } from './components/ui/Button';
-import { Card } from './components/ui/Card';
-import { Stepper } from './components/ui/Stepper';
-import { IosSwitch } from './components/ui/IosSwitch';
-import { StarRating } from './components/ui/StarRating';
 
-export default function App() {
-  const [currentStep] = useState(2);
-  const [notificationEnabled, setNotificationEnabled] = useState(false);
-  const [rating, setRating] = useState(5);
-
+function BookingStepPlaceholder({ step }: { step: string }) {
+  const navigate = useNavigate();
   return (
     <MobileFrame
-      title="Personal Homecare"
+      title={`Booking Langkah ${step}`}
       showBack={true}
-      onBack={() => console.log('Back pressed')}
-      rightAction={
-        <button
-          type="button"
-          aria-label="Notifikasi"
-          className="w-[44px] h-[44px] flex items-center justify-center text-ink-primary hover:text-ink-secondary btn-tactile rounded-full"
-        >
-          <Bell className="w-5 h-5 stroke-[2]" />
-        </button>
-      }
-      contentClassName="p-4 space-y-4"
+      onBack={() => navigate(-1)}
+      contentClassName="p-6 text-center space-y-4 flex flex-col items-center justify-center min-h-[400px]"
     >
-      {/* Stepper Demo */}
-      <Card variant="surface" radius="2xl" padding="sm" data-testid="test-card">
-        <Stepper
-          currentStep={currentStep}
-          steps={[
-            { number: 1, label: 'Tanggal' },
-            { number: 2, label: 'Waktu' },
-            { number: 3, label: 'Detail' },
-          ]}
-        />
-      </Card>
-
-      {/* Button Variants Demo */}
-      <Card variant="card" radius="2xl" padding="md" className="space-y-3">
-        <h2 className="text-xs font-semibold uppercase tracking-wider text-ink-muted">
-          Pilihan Aksi Layanan
-        </h2>
-        <div className="grid grid-cols-2 gap-2.5">
-          <Button
-            variant="lime"
-            data-testid="btn-lime"
-            fullWidth
-            onClick={() => console.log('Lime clicked')}
-          >
-            Pesan Layanan
-          </Button>
-          <Button
-            variant="forest"
-            data-testid="btn-forest"
-            fullWidth
-            onClick={() => console.log('Forest clicked')}
-          >
-            Konsultasi
-          </Button>
-        </div>
-        <div className="grid grid-cols-2 gap-2.5">
-          <Button
-            variant="outline"
-            data-testid="btn-outline"
-            fullWidth
-            onClick={() => console.log('Outline clicked')}
-          >
-            Rincian
-          </Button>
-          <Button
-            variant="subtle"
-            data-testid="btn-subtle"
-            fullWidth
-            onClick={() => console.log('Subtle clicked')}
-          >
-            Bantuan
-          </Button>
-        </div>
-      </Card>
-
-      {/* iOS Switch Demo */}
-      <Card variant="surface" radius="2xl" padding="md">
-        <IosSwitch
-          label="Pengingat Kunjungan Otomatis"
-          checked={notificationEnabled}
-          onChange={setNotificationEnabled}
-        />
-      </Card>
-
-      {/* Star Rating Demo */}
-      <Card variant="card" radius="2xl" padding="md" className="space-y-2 text-center">
-        <h3 className="text-sm font-semibold text-ink-primary">
-          Beri Penilaian Dokter
-        </h3>
-        <div className="flex justify-center items-center py-1">
-          <StarRating
-            rating={rating}
-            onChange={setRating}
-            interactive={true}
-            size="lg"
-            data-testid="interactive-star-rating"
-          />
-        </div>
-        <p className="text-xs text-ink-secondary">
-          Nilai terpilih:{' '}
-          <span data-testid="rating-value" className="font-semibold text-ink-primary">
-            {rating} Bintang
-          </span>
-        </p>
-      </Card>
+      <h2 className="text-lg font-bold text-ink-primary">
+        Langkah Pemesanan {step}
+      </h2>
+      <p className="text-sm text-ink-secondary max-w-[260px]">
+        Formulir jadwal kunjungan dokter homecare akan aktif di tahap ini.
+      </p>
+      <Button variant="lime" onClick={() => navigate('/')}>
+        Kembali ke Beranda
+      </Button>
     </MobileFrame>
+  );
+}
+
+function ReviewPlaceholder({ title }: { title: string }) {
+  const navigate = useNavigate();
+  return (
+    <MobileFrame
+      title={title}
+      showBack={true}
+      onBack={() => navigate(-1)}
+      contentClassName="p-6 text-center space-y-4 flex flex-col items-center justify-center min-h-[400px]"
+    >
+      <h2 className="text-lg font-bold text-ink-primary">{title}</h2>
+      <p className="text-sm text-ink-secondary max-w-[260px]">
+        Fitur ulasan pasien dan formulir penilaian dokter.
+      </p>
+      <Button variant="lime" onClick={() => navigate('/profil')}>
+        Kembali ke Profil
+      </Button>
+    </MobileFrame>
+  );
+}
+
+export default function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/profil" element={<ProfilePage />} />
+        <Route path="/booking/langkah-1" element={<BookingStepPlaceholder step="1" />} />
+        <Route path="/booking/langkah-2" element={<BookingStepPlaceholder step="2" />} />
+        <Route path="/booking/langkah-3" element={<BookingStepPlaceholder step="3" />} />
+        <Route path="/ulasan" element={<ReviewPlaceholder title="Daftar Ulasan Pasien" />} />
+        <Route path="/ulasan/tulis" element={<ReviewPlaceholder title="Tulis Ulasan Pasien" />} />
+        <Route path="/demo" element={<DemoLayoutPage />} />
+      </Routes>
+    </BrowserRouter>
   );
 }

@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 
 test.describe('Task 2: Core UI Primitives & Mobile Frame Layout', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('/');
+    await page.goto('/demo');
   });
 
   test('MobileFrame renders status bar, dynamic island, and home indicator', async ({ page }) => {
