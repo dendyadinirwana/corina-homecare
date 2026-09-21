@@ -36,7 +36,8 @@ test.describe('Task 4: Layar 1 (Beranda & Bio-Link Hub)', () => {
 
     const badgeRating = page.getByTestId('badge-rating');
     await expect.soft(badgeRating).toContainText('4.9');
-    await expect.soft(badgeRating).toContainText('180+ Pasien');
+    await expect.soft(badgeRating).toContainText('(180+)');
+    await expect.soft(badgeRating).not.toContainText('Pasien');
     const ratingBox = await badgeRating.boundingBox();
     expect.soft(ratingBox?.height).toBeGreaterThanOrEqual(44);
   });

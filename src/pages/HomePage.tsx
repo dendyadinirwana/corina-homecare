@@ -71,7 +71,7 @@ export const HomePage: React.FC = () => {
             data-testid="badge-rating"
             className="inline-flex items-center justify-center min-h-[44px] px-4 py-2 rounded-full bg-card border border-border-hairline text-xs font-medium text-ink-primary hover:bg-card-hover btn-tactile transition-colors"
           >
-            <span className="text-[#FFB800] mr-1">★</span> 4.9 (180+ Pasien)
+            <span className="text-[#FFB800] mr-1">★</span> 4.9 (180+)
           </Link>
         </div>
       </div>
