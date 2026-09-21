@@ -40,12 +40,29 @@ export function generateIcsContent(booking: ConfirmedBooking): string {
   const startHour = parseInt(hourStr, 10) || 11;
   const startMin = parseInt(minStr, 10) || 0;
 
-  // 1-hour appointment window
-  const endHour = (startHour + 1) % 24;
-  const endDay = startHour + 1 >= 24 ? day + 1 : day;
+  // Construct JavaScript Date for start time (using local components)
+  const startDate = new Date(year, month - 1, day, startHour, startMin, 0);
+  // Add 1 hour (60 * 60 * 1000 ms) using Date arithmetic for safe month/year rollover
+  const endDate = new Date(startDate.getTime() + 60 * 60 * 1000);
 
-  const dtStart = `${year}${pad(month)}${pad(day)}T${pad(startHour)}${pad(startMin)}00`;
-  const dtEnd = `${year}${pad(month)}${pad(endDay)}T${pad(endHour)}${pad(startMin)}00`;
+  const dtStart =
+    startDate.getFullYear() +
+    pad(startDate.getMonth() + 1) +
+    pad(startDate.getDate()) +
+    'T' +
+    pad(startDate.getHours()) +
+    pad(startDate.getMinutes()) +
+    '00';
+
+  const dtEnd =
+    endDate.getFullYear() +
+    pad(endDate.getMonth() + 1) +
+    pad(endDate.getDate()) +
+    'T' +
+    pad(endDate.getHours()) +
+    pad(endDate.getMinutes()) +
+    '00';
+
   const dtStamp = formatUtcTimestamp(new Date());
 
   const uid = `${booking.id || Date.now()}@corina-homecare.id`;

@@ -7,7 +7,7 @@ import { useBookingStore } from './store/bookingStore';
 import { useReviewStore } from './store/reviewStore';
 import { generateIcsContent, downloadIcsFile } from './utils/calendar';
 
-if (typeof window !== 'undefined') {
+if (import.meta.env.DEV && typeof window !== 'undefined') {
   (window as any).__BOOKING_STORE__ = useBookingStore;
   (window as any).__REVIEW_STORE__ = useReviewStore;
   (window as any).__CALENDAR__ = { generateIcsContent, downloadIcsFile };

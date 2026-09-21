@@ -28,7 +28,10 @@ const getSafeStorage = () => {
 export const useBookingStore = create<BookingStoreState>()(
   persist(
     (set, get) => ({
-      draft: { ...INITIAL_BOOKING_DRAFT },
+      draft: {
+        ...INITIAL_BOOKING_DRAFT,
+        coordinates: { ...INITIAL_BOOKING_DRAFT.coordinates },
+      },
       confirmedBooking: null,
 
       setDraft: (partial: Partial<BookingDraft>) =>
@@ -65,7 +68,10 @@ export const useBookingStore = create<BookingStoreState>()(
 
       resetDraft: () =>
         set({
-          draft: { ...INITIAL_BOOKING_DRAFT },
+          draft: {
+            ...INITIAL_BOOKING_DRAFT,
+            coordinates: { ...INITIAL_BOOKING_DRAFT.coordinates },
+          },
         }),
 
       setConfirmedBooking: (booking: ConfirmedBooking | null) =>

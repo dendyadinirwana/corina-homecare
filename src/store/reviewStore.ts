@@ -139,12 +139,15 @@ export const useReviewStore = create<ReviewStoreState>()(
         set((state) => ({
           reviews: state.reviews.map((review) => {
             if (review.id === id) {
-              const nextLikes = (review.likes || 0) + 1;
+              const currentlyLiked = Boolean(review.isLiked);
+              const nextLiked = !currentlyLiked;
+              const delta = nextLiked ? 1 : -1;
+              const nextLikes = Math.max(0, (review.likes || 0) + delta);
               return {
                 ...review,
                 likes: nextLikes,
                 helpfulCount: nextLikes,
-                isLiked: true,
+                isLiked: nextLiked,
               };
             }
             return review;

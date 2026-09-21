@@ -125,8 +125,8 @@ test.describe('Task 3: State Management & Types (Booking & Review Stores)', () =
     expect.soft(hendra.content).toContain('Pengambilan sampel darah');
   });
 
-  test('ReviewStore adds reviews, likes reviews, and persists state to localStorage', async ({ page }) => {
-    // 1. Like a review
+  test('ReviewStore adds reviews, toggles likes, and persists state to localStorage', async ({ page }) => {
+    // 1. Like a review (first time: increment from 14 to 15)
     await page.evaluate(() => {
       const store = (window as any).__REVIEW_STORE__;
       const firstId = store.getState().reviews[0].id;
@@ -137,6 +137,26 @@ test.describe('Task 3: State Management & Types (Booking & Review Stores)', () =
       return (window as any).__REVIEW_STORE__.getState().reviews[0];
     });
     expect.soft(likedReview.likes).toBe(15);
+    expect.soft(likedReview.isLiked).toBe(true);
+
+    // Toggle like off (decrement back to 14)
+    await page.evaluate(() => {
+      const store = (window as any).__REVIEW_STORE__;
+      const firstId = store.getState().reviews[0].id;
+      store.getState().likeReview(firstId);
+    });
+    const unlikedReview = await page.evaluate(() => {
+      return (window as any).__REVIEW_STORE__.getState().reviews[0];
+    });
+    expect.soft(unlikedReview.likes).toBe(14);
+    expect.soft(unlikedReview.isLiked).toBe(false);
+
+    // Re-like for persistent storage verification
+    await page.evaluate(() => {
+      const store = (window as any).__REVIEW_STORE__;
+      const firstId = store.getState().reviews[0].id;
+      store.getState().likeReview(firstId);
+    });
 
     // 2. Add a new review
     await page.evaluate(() => {
@@ -175,6 +195,7 @@ test.describe('Task 3: State Management & Types (Booking & Review Stores)', () =
     });
     expect.soft(rehydratedReviews.length).toBe(4);
     expect.soft(rehydratedReviews[1].likes).toBe(15);
+    expect.soft(rehydratedReviews[1].isLiked).toBe(true);
   });
 
   test('Calendar utility generates valid iCalendar RFC 5545 format and triggers download safely', async ({ page }) => {
@@ -199,6 +220,23 @@ test.describe('Task 3: State Management & Types (Booking & Review Stores)', () =
 
       const ics = calendar.generateIcsContent(mockBooking);
 
+      // Test month and year rollover for late hour appointment
+      const yearEndBooking = {
+        ...mockBooking,
+        id: 'BOOK-YEAR-END',
+        date: '2024-12-31',
+        time: '23:00',
+      };
+      const yearEndIcs = calendar.generateIcsContent(yearEndBooking);
+
+      const monthEndBooking = {
+        ...mockBooking,
+        id: 'BOOK-MONTH-END',
+        date: '2024-06-30',
+        time: '23:30',
+      };
+      const monthEndIcs = calendar.generateIcsContent(monthEndBooking);
+
       // Also safely call downloadIcsFile
       let downloadError = null;
       try {
@@ -207,7 +245,7 @@ test.describe('Task 3: State Management & Types (Booking & Review Stores)', () =
         downloadError = err?.message || String(err);
       }
 
-      return { ics, downloadError };
+      return { ics, yearEndIcs, monthEndIcs, downloadError };
     });
 
     expect(icsResult).not.toBeNull();
@@ -225,5 +263,13 @@ test.describe('Task 3: State Management & Types (Booking & Review Stores)', () =
     expect.soft(ics).toContain('STATUS:CONFIRMED');
     expect.soft(ics).toContain('END:VEVENT');
     expect.soft(ics).toContain('END:VCALENDAR');
+
+    // Year-end rollover check: 2024-12-31 23:00 -> 2025-01-01 00:00
+    expect.soft(icsResult?.yearEndIcs).toContain('DTSTART:20241231T230000');
+    expect.soft(icsResult?.yearEndIcs).toContain('DTEND:20250101T000000');
+
+    // Month-end rollover check: 2024-06-30 23:30 -> 2024-07-01 00:30
+    expect.soft(icsResult?.monthEndIcs).toContain('DTSTART:20240630T233000');
+    expect.soft(icsResult?.monthEndIcs).toContain('DTEND:20240701T003000');
   });
 });
