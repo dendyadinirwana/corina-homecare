@@ -5,24 +5,13 @@ test.describe('Task 2: Core UI Primitives & Mobile Frame Layout', () => {
     await page.goto('/demo');
   });
 
-  test('MobileFrame renders status bar, dynamic island, and home indicator', async ({ page }) => {
+  test('MobileFrame renders container and home indicator without simulated status bar', async ({ page }) => {
     const frame = page.getByTestId('mobile-frame');
     await expect.soft(frame).toBeVisible();
 
-    // Status bar with time 9:41 and icons
-    const statusBar = page.getByTestId('status-bar');
-    await expect.soft(statusBar).toBeVisible();
-    await expect.soft(page.getByTestId('status-bar-time')).toHaveText('9:41');
-    await expect.soft(page.getByTestId('status-bar-signal')).toBeVisible();
-    await expect.soft(page.getByTestId('status-bar-wifi')).toBeVisible();
-    await expect.soft(page.getByTestId('status-bar-battery')).toBeVisible();
-
-    // Dynamic Island
-    const dynamicIsland = page.getByTestId('dynamic-island');
-    await expect.soft(dynamicIsland).toBeVisible();
-    const islandBox = await dynamicIsland.boundingBox();
-    expect.soft(islandBox?.width).toBeCloseTo(124, -1);
-    expect.soft(islandBox?.height).toBeCloseTo(35, -1);
+    // Simulated status bar and dynamic island should NOT be present
+    await expect.soft(page.getByTestId('status-bar')).not.toBeAttached();
+    await expect.soft(page.getByTestId('dynamic-island')).not.toBeAttached();
 
     // Home indicator
     const homeIndicator = page.getByTestId('home-indicator');

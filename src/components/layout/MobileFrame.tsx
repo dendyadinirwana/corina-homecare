@@ -1,6 +1,5 @@
 import React from 'react';
 import { cn } from '../../lib/utils';
-import { StatusBar } from './StatusBar';
 import { TopNavBar } from './TopNavBar';
 
 export interface MobileFrameProps {
@@ -33,8 +32,6 @@ export const MobileFrame: React.FC<MobileFrameProps> = ({
           className
         )}
       >
-        {/* iOS Status Bar with Time, Dynamic Island, and System Icons */}
-        <StatusBar />
 
         {/* Optional Top Navigation Bar */}
         {!hideNav && (
