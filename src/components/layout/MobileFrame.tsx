@@ -52,14 +52,6 @@ export const MobileFrame: React.FC<MobileFrameProps> = ({
         >
           {children}
         </main>
-
-        {/* iOS Bottom Home Indicator */}
-        <div className="w-full pt-1.5 pb-2 flex justify-center items-center pointer-events-none shrink-0">
-          <div
-            data-testid="home-indicator"
-            className="w-[134px] h-[5px] bg-black/30 rounded-full"
-          />
-        </div>
       </div>
     </div>
   );

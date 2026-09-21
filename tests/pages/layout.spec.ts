@@ -5,20 +5,14 @@ test.describe('Task 2: Core UI Primitives & Mobile Frame Layout', () => {
     await page.goto('/demo');
   });
 
-  test('MobileFrame renders container and home indicator without simulated status bar', async ({ page }) => {
+  test('MobileFrame renders clean mobile container without simulated chrome (status bar / home indicator)', async ({ page }) => {
     const frame = page.getByTestId('mobile-frame');
     await expect.soft(frame).toBeVisible();
 
-    // Simulated status bar and dynamic island should NOT be present
+    // Simulated status bar, dynamic island, and home indicator should NOT be present
     await expect.soft(page.getByTestId('status-bar')).not.toBeAttached();
     await expect.soft(page.getByTestId('dynamic-island')).not.toBeAttached();
-
-    // Home indicator
-    const homeIndicator = page.getByTestId('home-indicator');
-    await expect.soft(homeIndicator).toBeVisible();
-    const indicatorBox = await homeIndicator.boundingBox();
-    expect.soft(indicatorBox?.width).toBeCloseTo(134, -1);
-    expect.soft(indicatorBox?.height).toBeCloseTo(5, -1);
+    await expect.soft(page.getByTestId('home-indicator')).not.toBeAttached();
   });
 
   test('TopNavBar displays title, accessible back button, and right action', async ({ page }) => {
